@@ -1,0 +1,2 @@
+`Spring -test`模块支持使用JUnit或TestNG对Spring组件进行单元测试和集成测试。它提供了Spring applicationcontext的一致加载和这些上下文的缓存。它还提供模拟对象，您可以使用这些对象单独测试代码。
+
