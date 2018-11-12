@@ -4,6 +4,8 @@
 
 Spring框架的每个版本都会将构件发布到以下地方:
 
+
+
 * Maven中央仓库，这是Maven查询的默认存储库，不需要任何特殊配置。Spring所依赖的许多公共库也可以从Maven Central获得，Spring社区的很大一部分使用Maven进行依赖管理，因此这对它们来说很方便。这里jar的名称是spring-\*-&lt;version&gt;.jar 和Maven groupId是org.springframework
 * 在专门为Spring托管的公共Maven存储库中。除了最终的GA版本，这个存储库还包含开发快照和里程碑。jar文件名与Maven Central的格式相同，因此这是一个很有用的地方，可以让Spring的开发版本与部署在Maven Central的其他库一起使用。这个存储库还包含一个包分发zip文件，该文件包含捆绑在一起的所有Spring jar，便于下载。
 
@@ -182,5 +184,5 @@ dependencies {
 
 zip文件发布到Spring Maven存储库\(这只是为了方便起见，您不需要Maven或任何其他构建系统来下载它们\)。
 
-要下载发行版zip，请打开web浏览器http://repo.spring.io/release/org/springframework/spring，并为您想要的版本选择适当的子文件夹。分发文件`-dist.zip`结尾，例如spring-framework-{spring-version}- release -dist.zip。发行版还针对里程碑[milestones](https://repo.spring.io/milestone/org/springframework/spring)和快照[snapshots](https://repo.spring.io/snapshot/org/springframework/spring)发布。
+要下载发行版zip，请打开web浏览器[http://repo.spring.io/release/org/springframework/spring，并为您想要的版本选择适当的子文件夹。分发文件\`-dist.zip\`结尾，例如spring-framework-{spring-version}-](http://repo.spring.io/release/org/springframework/spring，并为您想要的版本选择适当的子文件夹。分发文件`-dist.zip`结尾，例如spring-framework-{spring-version}-) release -dist.zip。发行版还针对里程碑[milestones](https://repo.spring.io/milestone/org/springframework/spring)和快照[snapshots](https://repo.spring.io/snapshot/org/springframework/spring)发布。
 
