@@ -22,4 +22,5 @@
     * [3.4、Java EE 6 and 7](whats-new-in-spring-framework-4x/3new-features-and-enhancements-in-spring-framework-40/34java-ee-6-and-7.md)
     * [3.5、Groovy Bean Definition DSL](whats-new-in-spring-framework-4x/3new-features-and-enhancements-in-spring-framework-40/35groovy-bean-definition-dsl.md)
     * [3.6、Core Container Improvements](whats-new-in-spring-framework-4x/3new-features-and-enhancements-in-spring-framework-40/36core-container-improvements.md)
+    * [3.7、General Web Improvements](whats-new-in-spring-framework-4x/3new-features-and-enhancements-in-spring-framework-40/37general-web-improvements.md)
 
