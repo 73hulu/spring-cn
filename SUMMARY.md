@@ -19,4 +19,6 @@
     * [3.1、Improved Getting Started Experience](whats-new-in-spring-framework-4x/3new-features-and-enhancements-in-spring-framework-40/31improved-getting-started-experience.md)
     * [3.2、Removed Deprecated Packages and Methods](whats-new-in-spring-framework-4x/3new-features-and-enhancements-in-spring-framework-40/32removed-deprecated-packages-and-methods.md)
     * [3.3、Java 8 \(as well as 6 and 7\)](whats-new-in-spring-framework-4x/3new-features-and-enhancements-in-spring-framework-40/33java-8-as-well-as-6-and-7.md)
+    * [3.4、Java EE 6 and 7](whats-new-in-spring-framework-4x/3new-features-and-enhancements-in-spring-framework-40/34java-ee-6-and-7.md)
+    * 3.5、Groovy Bean Definition DSL
 
