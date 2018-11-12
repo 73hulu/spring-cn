@@ -13,4 +13,10 @@
       * [2.2.6、Test](2/22-framework-modules/226test.md)
     * [2.3、 Usage scenarios](2/23-usage-scenarios.md)
       * [2.3.1、Dependency Management and Naming Conventions](2/23-usage-scenarios/231dependency-management-and-naming-conventions.md)
+      * [2.3.2、Logging](2/23-usage-scenarios/232logging.md)
+* [Ⅱ、What’s New in Spring Framework 4.x](whats-new-in-spring-framework-4x.md)
+  * [3. New Features and Enhancements in Spring Framework 4.0](whats-new-in-spring-framework-4x/3new-features-and-enhancements-in-spring-framework-40.md)
+    * 3.1、Improved Getting Started Experience
+    * 3.2、Removed Deprecated Packages and Methods
+    * 3.3、Java 8 \(as well as 6 and 7\)
 
