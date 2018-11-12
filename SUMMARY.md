@@ -31,4 +31,5 @@
     * 4.3、Web Improvements
     * 4.4、WebSocket Messaging Improvements
     * 4.5、Testing Improvements
+  * 5. New Features and Enhancements in Spring Framework 4.2
 
