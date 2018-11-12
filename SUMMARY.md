@@ -31,5 +31,24 @@
     * 4.3、Web Improvements
     * 4.4、WebSocket Messaging Improvements
     * 4.5、Testing Improvements
-  * 5. New Features and Enhancements in Spring Framework 4.2
+  * [5.New Features and Enhancements in Spring Framework 4.2](whats-new-in-spring-framework-4x/5qq.md)
+    * 5.1、Core Container Improvements
+    * 5.2、Data Access Improvements
+    * 5.3、JMS Improvements
+    * 5.4、Web Improvements
+    * 5.5、WebSocket Messaging Improvements
+    * 5.6、Testing Improvements
+  * [6.New Features and Enhancements in Spring Framework 4.3](whats-new-in-spring-framework-4x/6new-features-and-enhancements-in-spring-framework-43.md)
+    * 6.1、Core Container Improvements
+    * 6.2、Data Access Improvements
+    * 6.3、Caching Improvements
+    * 6.4、JMS Improvements
+    * 6.5、Web Improvements
+    * 6.6、WebSocket Messaging Improvements
+    * 6.7、Testing Improvements
+    * 6.8、Support for new library and server generations
+* Ⅲ、Core Technologies
+  * [7.The IoC container](7the-ioc-container.md)
+    * 7.1、Introduction to the Spring IoC container and beans
+    * 7.2、 Container overview
 
