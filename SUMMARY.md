@@ -16,7 +16,7 @@
       * [2.3.2、Logging](2/23-usage-scenarios/232logging.md)
 * [Ⅱ、What’s New in Spring Framework 4.x](whats-new-in-spring-framework-4x.md)
   * [3. New Features and Enhancements in Spring Framework 4.0](whats-new-in-spring-framework-4x/3new-features-and-enhancements-in-spring-framework-40.md)
-    * 3.1、Improved Getting Started Experience
-    * 3.2、Removed Deprecated Packages and Methods
-    * 3.3、Java 8 \(as well as 6 and 7\)
+    * [3.1、Improved Getting Started Experience](whats-new-in-spring-framework-4x/3new-features-and-enhancements-in-spring-framework-40/31improved-getting-started-experience.md)
+    * [3.2、Removed Deprecated Packages and Methods](whats-new-in-spring-framework-4x/3new-features-and-enhancements-in-spring-framework-40/32removed-deprecated-packages-and-methods.md)
+    * [3.3、Java 8 \(as well as 6 and 7\)](whats-new-in-spring-framework-4x/3new-features-and-enhancements-in-spring-framework-40/33java-8-as-well-as-6-and-7.md)
 
