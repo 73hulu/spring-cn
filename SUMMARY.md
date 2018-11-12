@@ -25,4 +25,5 @@
     * [3.7、General Web Improvements](whats-new-in-spring-framework-4x/3new-features-and-enhancements-in-spring-framework-40/37general-web-improvements.md)
     * [3.8、WebSocket, SockJS, and STOMP Messaging](whats-new-in-spring-framework-4x/3new-features-and-enhancements-in-spring-framework-40/38websocket-sockjs-and-stomp-messaging.md)
     * [3.9、Testing Improvements](whats-new-in-spring-framework-4x/3new-features-and-enhancements-in-spring-framework-40/39testing-improvements.md)
+  * [4.New Features and Enhancements in Spring Framework 4.1](whats-new-in-spring-framework-4x/4new-features-and-enhancements-in-spring-framework-41.md)
 
