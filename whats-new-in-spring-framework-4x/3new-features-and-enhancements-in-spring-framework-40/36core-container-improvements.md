@@ -13,5 +13,7 @@
 
 * 基于cglib的代理类（[CGLIB-based proxy classes](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#aop-pfb-proxy-types)） 不再需要默认构造函数。支持是通过[objenesis](https://code.google.com/p/objenesis/) 库提供的，该库作为Spring框架的一部分被重新内联和分发。有了这种策略，就再也不会为代理实例调用构造函数了。
 
+* 现在跨框架有管理时区支持，例如在`LocaleContext`上。
+
 
 
