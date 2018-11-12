@@ -47,8 +47,8 @@
     * 6.6、WebSocket Messaging Improvements
     * 6.7、Testing Improvements
     * 6.8、Support for new library and server generations
-* Ⅲ、Core Technologies
+* [Ⅲ、Core Technologies](core-technologies.md)
   * [7.The IoC container](7the-ioc-container.md)
-    * 7.1、Introduction to the Spring IoC container and beans
-    * 7.2、 Container overview
+    * [7.1、Introduction to the Spring IoC container and beans](7the-ioc-container/71introduction-to-the-spring-ioc-container-and-beans.md)
+    * [7.2、 Container overview](7the-ioc-container/72-container-overview.md)
 
