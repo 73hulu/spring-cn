@@ -51,4 +51,5 @@
   * [7.The IoC container](7the-ioc-container.md)
     * [7.1、Introduction to the Spring IoC container and beans](7the-ioc-container/71introduction-to-the-spring-ioc-container-and-beans.md)
     * [7.2、 Container overview](7the-ioc-container/72-container-overview.md)
+      * [7.2.1、Configuration metadata](7the-ioc-container/72-container-overview/721configuration-metadata.md)
 
