@@ -54,5 +54,5 @@
       * [7.2.1、Configuration metadata](7the-ioc-container/72-container-overview/721configuration-metadata.md)
       * [7.2.2、 Instantiating a container](7the-ioc-container/72-container-overview/722-instantiating-a-container.md)
       * [7.2.3、Using the container](7the-ioc-container/72-container-overview/723using-the-container.md)
-    * 7.3、Bean overview
+    * [7.3、Bean overview](7the-ioc-container/73bean-overview.md)
 
