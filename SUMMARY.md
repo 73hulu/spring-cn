@@ -55,4 +55,5 @@
       * [7.2.2、 Instantiating a container](7the-ioc-container/72-container-overview/722-instantiating-a-container.md)
       * [7.2.3、Using the container](7the-ioc-container/72-container-overview/723using-the-container.md)
     * [7.3、Bean overview](7the-ioc-container/73bean-overview.md)
+      * 7.3.1、Naming beans
 
