@@ -19,7 +19,17 @@ com.example.Foo$Bar
 
 当您通过构造方法创建bean时，所有普通类都可以使用并与Spring兼容。也就是说，正在开发的类不需要实现任何特定接口或以特定方式编码。简单地指定bean类就足够了。 但是，根据您为该特定bean使用的IoC类型，您可能需要一个默认（空）构造函数。
 
-Spring IoC容器几乎可以管理您希望它管理的任何类; 它不仅限于管理真正的JavaBeans。大多数Spring用户更喜欢实际的JavaBeans，只有一个默认（无参数）构造函数，并且在容器中的属性之后建模了适当的setter和getter。
+Spring IoC容器几乎可以管理您希望它管理的任何类; 它不仅限于管理真正的JavaBeans。大多数Spring用户更喜欢实际的JavaBeans，只有一个默认（无参数）构造函数，并且在容器中的属性之后建模了适当的setter和getter。你也可以在你的容器里拥有更多奇异的非bean风格的classes。例如，如果您需要使用绝对不符合JavaBean规范的旧连接池，那么Spring也可以对其进行管理。
+
+使用基于XML的配置元数据，您可以按如下方式指定bean类：
+
+```
+<bean id="exampleBean" class="examples.ExampleBean"/>
+
+<bean name="anotherExample" class="examples.ExampleBeanTwo"/>
+```
+
+有关为构造函数提供参数的机制（如果需要）以及在构造对象后设置对象实例属性的详细信息，请参阅[Injecting Dependencies](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-factory-collaborators)。
 
 
 
