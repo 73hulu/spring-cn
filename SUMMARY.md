@@ -57,4 +57,6 @@
     * [7.3、Bean overview](7the-ioc-container/73bean-overview.md)
       * [7.3.1、Naming beans](7the-ioc-container/73bean-overview/731naming-beans.md)
       * [7.3.2、 Instantiating beans](7the-ioc-container/73bean-overview/732-instantiating-beans.md)
+    * [7.4、Dependencies](7the-ioc-container/74dependencies.md)
+      * [7.4.1、Dependency Injection](7the-ioc-container/74dependencies/741dependency-injection.md)
 
