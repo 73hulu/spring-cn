@@ -1,6 +1,6 @@
 bean定义本质上是用于创建一个或多个对象的配方。容器在被询问时查看命名bean的配方，并使用由该bean定义封装的配置元数据来创建（或获取）实际对象。
 
-如果使用基于XML的配置元数据，则指定要在&lt;bean /&gt;元素的class属性中实例化的对象的类型（或类）。此类属性通常是必需的，它在内部是BeanDefinition实例上的Class属性。（有关异常，请参阅[the section called “Instantiation using an instance factory method”](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-factory-class-instance-factory-method)和[Section 7.7, “Bean definition inheritance”](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-child-bean-definitions)）。您可以通过以下两种方式之一使用Class属性：
+如果使用基于XML的配置元数据，则指定要在&lt;bean /&gt;元素的class属性中实例化的对象的类型（或类）。此类属性通常是必需的，它在内部是BeanDefinition实例上的Class属性。（有关异常，请参阅[the section called “Instantiation using an instance factory method”](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-factory-class-instance-factory-method)和[Section 7.7, “Bean definition inheritance”](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-child-bean-definitions)）。您可以通过以下两种方式之一使用Class属性：
 
 * 通常，在容器本身通过反射调用其构造函数直接创建指定bean类，稍微等同于java代码使用new操作。
 * 以指定包含静态工厂方法的实际类，在不太常见的情况下，容器在类上调用静态工厂方法来创建bean。从静态工厂方法调用返回的对象类型可能完全是同一个类或另一个类。
@@ -14,6 +14,12 @@ com.example.Foo$Bar
 
 请注意，在名称中使用$字符可以将嵌套类名与外部类名分开。
 ```
+
+#### Instantiation with a constructor（使用构造函数实例化）
+
+当您通过构造方法创建bean时，所有普通类都可以使用并与Spring兼容。也就是说，正在开发的类不需要实现任何特定接口或以特定方式编码。简单地指定bean类就足够了。 但是，根据您为该特定bean使用的IoC类型，您可能需要一个默认（空）构造函数。
+
+Spring IoC容器几乎可以管理您希望它管理的任何类; 它不仅限于管理真正的JavaBeans。大多数Spring用户更喜欢实际的JavaBeans，只有一个默认（无参数）构造函数，并且在容器中的属性之后建模了适当的setter和getter。
 
 
 
