@@ -93,5 +93,35 @@ public class ExampleBean {
 </bean>
 ```
 
+除了解决多个简单值的歧义之外，指定索引还可以解决构造函数具有相同类型的两个参数的歧义。请注意，索引从0开始。
+
+您还可以使用构造函数参数名称进行值消歧：
+
+```
+<bean id="exampleBean" class="examples.ExampleBean">
+    <constructor-arg name="years" value="7500000"/>
+    <constructor-arg name="ultimateAnswer" value="42"/>
+</bean>
+```
+
+请记住，要使这项工作开箱即用，必须在启用调试标志的情况下编译代码，以便Spring可以从构造函数中查找参数名称。如果您无法使用调试标志编译代码（或者不想）你可以使用@ConstructorProperties JDK注释来显式命名你的构造函数参数。 然后，示例类必须如下所示：
+
+```
+package examples;
+
+public class ExampleBean {
+
+    // Fields omitted
+
+    @ConstructorProperties({"years", "ultimateAnswer"})
+    public ExampleBean(int years, String ultimateAnswer) {
+        this.years = years;
+        this.ultimateAnswer = ultimateAnswer;
+    }
+}
+```
+
+#### Setter-based dependency injection（基于Setter的依赖注入）
+
 
 
