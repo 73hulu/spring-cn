@@ -38,5 +38,60 @@ public class Foo {
 }
 ```
 
+假设`Bar`和`Baz`类与继承无关，则不存在潜在的歧义。因此，以下配置工作正常，您无需在&lt;constructor-arg /&gt;元素中显式指定构造函数参数索引或类型。
+
+```
+<beans>
+    <bean id="foo" class="x.y.Foo">
+        <constructor-arg ref="bar"/>
+        <constructor-arg ref="baz"/>
+    </bean>
+
+    <bean id="bar" class="x.y.Bar"/>
+
+    <bean id="baz" class="x.y.Baz"/>
+</beans>
+```
+
+当引用另一个bean时，类型是已知的，并且可以进行匹配（与前面的示例一样）。当使用简单类型时，例如&lt;value&gt; true &lt;/ value&gt;，Spring无法确定类型 值，因此无法在没有帮助的情况下按类型匹配。 考虑以下课程：
+
+```
+package examples;
+
+public class ExampleBean {
+
+    // Number of years to calculate the Ultimate Answer
+    private int years;
+
+    // The Answer to Life, the Universe, and Everything
+    private String ultimateAnswer;
+
+    public ExampleBean(int years, String ultimateAnswer) {
+        this.years = years;
+        this.ultimateAnswer = ultimateAnswer;
+    }
+}
+```
+
+在前面的场景中，如果使用type属性显式指定构造函数参数的类型，则容器可以使用与简单类型匹配的类型。
+
+例如：
+
+```
+<bean id="exampleBean" class="examples.ExampleBean">
+    <constructor-arg type="int" value="7500000"/>
+    <constructor-arg type="java.lang.String" value="42"/>
+</bean>
+```
+
+使用index属性显式指定构造函数参数的索引。 例如：
+
+```
+<bean id="exampleBean" class="examples.ExampleBean">
+    <constructor-arg index="0" value="7500000"/>
+    <constructor-arg index="1" value="42"/>
+</bean>
+```
+
 
 
