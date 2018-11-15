@@ -24,5 +24,18 @@ Bean命名约定
 <alias name="fromName" alias="toName"/>
 ```
 
+在这种情况下，在使用此别名定义之后，同名容器中名为fromName的bean也可以称为toName。例如，子系统A的配置元数据可以通过名称`subsystemA-dataSource`引用DataSource。子系统B的配置元数据可以通过名称`subsystemB-dataSource`引用数据源。在编写使用这两个子系统的主应用程序时，主应用程序通过名称`myApp-dataSource`引用DataSource。要使三个名称引用添加到MyApp配置元数据的同一对象，请使用以下别名定义：
+
+```
+<alias name="subsystemA-dataSource" alias="subsystemB-dataSource"/>
+<alias name="subsystemA-dataSource" alias="myApp-dataSource" />
+```
+
+现在，每个组件和主应用程序都可以通过一个唯一的名称引用dataSource，并保证不与任何其他定义冲突（有效地创建命名空间），但它们引用相同的bean。
+
+**Java-configuration**
+
+如果您使用的是Java配置，则@Bean注释可用于提供别名，请参见第7.12.3节“使用@Bean注释”了解详细信息[Section 7.12.3, “Using the @Bean annotation”](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-java-bean-annotation)。
+
 
 
