@@ -31,5 +31,9 @@ Spring IoC容器几乎可以管理您希望它管理的任何类; 它不仅限�
 
 有关为构造函数提供参数的机制（如果需要）以及在构造对象后设置对象实例属性的详细信息，请参阅[Injecting Dependencies](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-factory-collaborators)。
 
+#### Instantiation with a static factory method（使用静态工厂方法实例化）
+
+~~定义使用静态工厂方法创建的bean时，可以使用class属性指定包含静态工厂方法的类和名为factory-method的属性，以指定工厂方法本身的名称。您应该能够调用此方法（使用后面描述的可选参数）并返回一个活动对象，随后将其视为通过构造函数创建的对象。对于此类bean定义的一个用途是在遗留系统中调用静态工厂代码。~~
+
 
 
