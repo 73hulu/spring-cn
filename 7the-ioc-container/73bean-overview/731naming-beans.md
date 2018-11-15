@@ -1,0 +1,14 @@
+每个bean都有一个或多个标识符。这些标识符在托管bean的容器中必须是唯一的。bean通常只有一个标识符，但如果它需要多个标识符，则额外的标识符可以被视为别名。
+
+在基于XML的配置元数据中，您使用id或name属性来指定bean标识符。id属性允许您指定一个id。通常，这些名称是字母数字（'myBean'，'fooService'等），但也可能包含特殊字符。如果要向bean引入其他别名，还可以在name属性中指定它们，用逗号（，），分号（;）或空格分隔。作为历史记录，在Spring 3.1之前的版本中，id属性被定义为xsd:ID类型，它约束了可能的字符。从3.1开始，它被定义为xsd:string类型。 请注意，bean ID唯一性仍由容器强制执行，但不再由XML解析器强制执行。
+
+您不需要为bean提供名称或ID。如果没有显式提供名称或标识，则容器会为该bean生成唯一的名称。但是，如果要通过名称引用该bean，通过使用ref元素或[Service Locator](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-servicelocator)方式查找，则必须提供名称。不提供名称的动机与使用[inner beans](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-inner-beans)和[autowiring collaborators](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-factory-autowire)有关。
+
+> **Bean命名约定**
+>
+> 惯例是在命名bean时使用标准Java约定作为实例字段名称。也就是说，bean名称以小写字母开头，从那时起就是驼峰式的。这些名称的示例是（没有引号）'accountManager'，'accountService'，'userDao'，'loginController'等等。
+>
+> 命名bean始终使您的配置更易于阅读和理解，如果您使用的是Spring AOP，那么在将建议应用于与名称相关的一组bean时，它会有很大帮助。
+
+
+
