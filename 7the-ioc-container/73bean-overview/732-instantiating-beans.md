@@ -33,7 +33,7 @@ Spring IoC容器几乎可以管理您希望它管理的任何类; 它不仅限�
 
 #### Instantiation with a static factory method（使用静态工厂方法实例化）
 
-~~定义使用静态工厂方法创建的bean时，可以使用class属性指定包含静态工厂方法的类和名为factory-method的属性，以指定工厂方法本身的名称。您应该能够调用此方法（使用后面描述的可选参数）并返回一个活动对象，随后将其视为通过构造函数创建的对象。对于此类bean定义的一个用途是在遗留系统中调用静态工厂代码。~~
+定义使用静态工厂方法创建的bean时，可以使用class属性指定包含静态工厂方法的类和名为factory-method的属性，以指定工厂方法本身的名称。您应该能够调用此方法（使用后面描述的可选参数）并返回一个活动对象，随后将其视为通过构造函数创建的对象。对于此类bean定义的一个用途是在遗留系统中调用静态工厂代码。
 
 以下bean定义指定通过调用factory-method创建bean。该定义未指定返回对象的类型（类），仅指定包含工厂方法的类。在此示例中，createInstance（）方法必须是静态方法。
 
@@ -53,6 +53,72 @@ public class ClientService {
     }
 }
 ```
+
+有关向工厂方法提供（可选）参数以及在从工厂返回对象后设置对象实例属性的机制的详细信息，请参阅[Dependencies and configuration in detail](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-factory-properties-detailed)。
+
+#### Instantiation using an instance factory method（使用实例工厂方法实例化）
+
+类似于通过静态工厂方法实例化，使用实例工厂方法实例化从容器调用现有bean的非静态方法来创建新bean。要使用此机制，请将`class`属性保留为空，并在`factory-bean`属性中，在当前（或父/祖先）容器中指定bean的名称，该容器包含要调用以创建对象的实例方法。使用factory-method属性设置工厂方法本身的名称。
+
+```
+<!-- the factory bean, which contains a method called createInstance() -->
+<bean id="serviceLocator" class="examples.DefaultServiceLocator">
+    <!-- inject any dependencies required by this locator bean -->
+</bean>
+
+<!-- the bean to be created via the factory bean -->
+<bean id="clientService"
+    factory-bean="serviceLocator"
+    factory-method="createClientServiceInstance"/>
+```
+
+```
+public class DefaultServiceLocator {
+
+    private static ClientService clientService = new ClientServiceImpl();
+
+    public ClientService createClientServiceInstance() {
+        return clientService;
+    }
+}
+```
+
+一个工厂类也可以包含多个工厂方法，如下所示：
+
+```
+<bean id="serviceLocator" class="examples.DefaultServiceLocator">
+    <!-- inject any dependencies required by this locator bean -->
+</bean>
+
+<bean id="clientService"
+    factory-bean="serviceLocator"
+    factory-method="createClientServiceInstance"/>
+
+<bean id="accountService"
+    factory-bean="serviceLocator"
+    factory-method="createAccountServiceInstance"/>
+```
+
+```
+public class DefaultServiceLocator {
+
+    private static ClientService clientService = new ClientServiceImpl();
+
+    private static AccountService accountService = new AccountServiceImpl();
+
+    public ClientService createClientServiceInstance() {
+        return clientService;
+    }
+
+    public AccountService createAccountServiceInstance() {
+        return accountService;
+    }
+}
+```
+
+这种方法表明可以通过依赖注入（DI）来管理和配置工厂bean本身。 请参阅详细信息中的依赖关系和配置[Dependencies and configuration in detail](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-factory-properties-detailed)。
+
+> 在Spring文档中，factory bean指的是在Spring容器中配置的bean，它将通过实例或静态工厂方法创建对象。相比之下，FactoryBean（注意大小写）是指Spring特定的FactoryBean。
 
 
 
