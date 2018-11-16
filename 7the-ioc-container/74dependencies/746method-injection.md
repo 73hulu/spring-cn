@@ -46,6 +46,83 @@ Lookup方法注入是容器覆盖容器托管bean上的方法的能力，以返�
 > * 要使这个动态子类工作，Spring bean容器将子类化的类不能是final，并且要重写的方法也不能是final。
 > * 对具有抽象方法的类进行单元测试需要您自己对类进行子类化，并提供抽象方法的存根实现。
 > * 组件扫描也需要具体方法，这需要具体的类别来获取。
+> * 另一个关键限制是，查找方法不能与工厂方法一起工作，特别是与配置类中的@Bean方法一起工作，因为容器在这种情况下不负责创建实例，因此不能动态创建运行时生成的子类。
+
+查看前面代码片段中的CommandManager类，您会看到Spring容器将动态覆盖createCommand（）方法的实现。您的CommandManager类将不具有任何Spring依赖项，如重新编写的示例中所示：
+
+```
+package fiona.apple;
+
+// no more Spring imports!
+
+public abstract class CommandManager {
+
+    public Object process(Object commandState) {
+        // grab a new instance of the appropriate Command interface
+        Command command = createCommand();
+        // set the state on the (hopefully brand new) Command instance
+        command.setState(commandState);
+        return command.execute();
+    }
+
+    // okay... but where is the implementation of this method?
+    protected abstract Command createCommand();
+}
+```
+
+在包含要注入的方法的客户机类（本例中为CommandManager）中，要注入的方法需要以下形式的签名：
+
+```
+<public|protected> [abstract] <return-type> theMethodName(no-arguments);
+```
+
+如果方法是抽象的，则动态生成的子类实现该方法。 否则，动态生成的子类将覆盖原始类中定义的具体方法。 例如：
+
+```
+<!-- a stateful bean deployed as a prototype (non-singleton) -->
+<bean id="myCommand" class="fiona.apple.AsyncCommand" scope="prototype">
+    <!-- inject dependencies here as required -->
+</bean>
+
+<!-- commandProcessor uses statefulCommandHelper -->
+<bean id="commandManager" class="fiona.apple.CommandManager">
+    <lookup-method name="createCommand" bean="myCommand"/>
+</bean>
+```
+
+标识为commandManager的bean在需要myCommand bean的新实例时调用自己的方法createCommand（）。您必须小心将myCommand bean部署为原型，如果这实际上是需要的话。如果它是一个单例[singleton](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-factory-scopes-singleton)，则每次都返回myCommand bean的相同实例。
+
+或者，在基于注释的组件模型中，您可以通过@Lookup批注声明查找方法：
+
+```
+public abstract class CommandManager {
+
+    public Object process(Object commandState) {
+        Command command = createCommand();
+        command.setState(commandState);
+        return command.execute();
+    }
+
+    @Lookup("myCommand")
+    protected abstract Command createCommand();
+}
+```
+
+或者，更具惯用性，您可以依赖于针对查找方法的声明返回类型解析目标bean：
+
+```
+public abstract class CommandManager {
+
+    public Object process(Object commandState) {
+        MyCommand command = createCommand();
+        command.setState(commandState);
+        return command.execute();
+    }
+
+    @Lookup
+    protected abstract MyCommand createCommand();
+}
+```
 
 
 
