@@ -225,3 +225,40 @@ support=support@example.co.uk
 
 您不能合并不同的集合类型（例如`Map`和`List`），如果您尝试这样做，则会抛出相应的`Exception`。必须在较低的继承子定义上指定merge属性; 在父集合定义上指定merge属性是多余的，不会导致所需的合并。
 
+##### Strongly-typed collection----强类型集合
+
+通过在Java 5中引入泛型类型，您可以使用强类型集合。也就是说，可以声明Collection类型，使其只能包含String元素（例如）。如果您使用Spring依赖注入一个强类型的Collection到bean中，您可以利用Spring的类型转换支持，以便强类型Collection实例的元素在添加到之前转换为适当的类型 集合。
+
+```
+public class Foo {
+
+    private Map<String, Float> accounts;
+
+    public void setAccounts(Map<String, Float> accounts) {
+        this.accounts = accounts;
+    }
+}
+```
+
+```
+<beans>
+    <bean id="foo" class="x.y.Foo">
+        <property name="accounts">
+            <map>
+                <entry key="one" value="9.99"/>
+                <entry key="two" value="2.75"/>
+                <entry key="six" value="3.99"/>
+            </map>
+        </property>
+    </bean>
+</beans>
+```
+
+当foo bean的`accounts`属性准备好进行注入时，可以通过反射获得有关强类型`Map <String，Float>`的元素类型的泛型信息。因此，Spring的类型转换基础结构将各种值元素识别为`Float`类型，并将字符串值`9.99`,`2.75`和`3.99`转换为实际的`Float`类型。
+
+#### Null and empty string values----空值和空字符串值
+
+
+
+
+
