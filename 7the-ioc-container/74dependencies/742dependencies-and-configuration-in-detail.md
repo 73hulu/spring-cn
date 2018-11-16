@@ -135,7 +135,7 @@ Spring容器通过使用JavaBeans `PropertyEditor`机制将`<value />`元素内�
 
 作为极端情况，可以从自定义范围接收销毁回调，例如， 对于包含在单例bean中的请求范围的内部bean：内部bean实例的创建将绑定到其包含的bean，但是销毁回调允许它参与请求范围的生命周期。 这不是常见的情况; 内部bean通常只是共享其包含bean的范围。
 
-####  Collections----集合
+#### Collections----集合
 
 在`<list />`，`<set />`，`<map />`和`<props />`元素中，分别设置Java `Collection`类型`List`，`Set`，`Map`和`Properties`的属性和参数。
 
@@ -181,5 +181,7 @@ map键或值，或set值的值也可以是以下元素之一:
 
 ##### Collection merging----集合合并
 
+Spring容器还支持集合的合并。应用程序开发人员可以定义父样式的&lt;list /&gt;，&lt;map /&gt;，&lt;set /&gt;或&lt;props /&gt;元素，并具有子样式&lt;list /&gt;，&lt;map /&gt;，&lt;set /&gt;或 &lt;props /&gt;元素继承并覆盖父集合中的值。也就是说，子集合的值是合并父集合和子集合的元素的结果，子集合的元素覆盖父集合中指定的值。
 
+关于合并的这一部分讨论了父子bean机制。 不熟悉父母和子bean定义的读者可能希望在继续之前阅读相关部分[_relevant section_](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-child-bean-definitions)。
 
