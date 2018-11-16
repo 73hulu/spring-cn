@@ -292,7 +292,7 @@ exampleBean.setEmail(null);
 
 p-namespace使您可以使用bean元素的属性而不是嵌套的&lt;property /&gt;元素来描述属性值或协作bean。
 
-Spring支持具有命名空间的可扩展配置格式[with namespaces](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#xsd-configuration)，这些命名空间基于XML Schema定义。 本章中讨论的bean配置格式在XML Schema文档中定义。但是，p-namespace未在XSD文件中定义，仅存在于Spring的核心中。
+Spring支持具有命名空间的可扩展配置格式[with namespaces](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#xsd-configuration)，这些命名空间基于XML Schema定义。 本章中讨论的bean配置格式在XML Schema文档中定义。但是，`p-namespace未在XSD文件中定义，仅存在于Spring的核心中`。
 
 以下示例显示了两个解析为相同结果的XML片段：第一个使用标准XML格式，第二个使用p-namespace。
 
