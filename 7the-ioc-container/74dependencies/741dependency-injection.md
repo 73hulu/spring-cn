@@ -179,5 +179,9 @@ Circular dependencies（循环依赖）
 与典型情况（没有循环依赖）不同，bean A和bean B之间的循环依赖强制其中一个bean在完全初始化之前被注入另一个bean（一个经典的鸡/蛋场景）。
 ```
 
+您通常可以相信Spring会做正确的事情。它在容器装载时检测配置问题，例如对不存在的bean和循环依赖项的引用。在实际创建bean时，Spring尽可能晚地设置属性并解析依赖关系。这意味着，如果在创建该对象或其依赖项时出现问题，那么在以后请求对象时，正确加载的Spring容器可以生成异常。例如，bean由于丢失或无效属性而抛出异常。某些配置问题可能会延迟可见性，这就是为什么ApplicationContext实现在默认情况下预实例化单例bean。在实际需要这些bean之前先花一些时间和内存来创建它们，在创建ApplicationContext时\(而不是稍后\)，您会发现配置问题。您仍然可以覆盖此默认行为，以便单例bean将延迟初始化，而不是预先实例化。
 
+如果不存在循环依赖项，当一个或多个协作bean被注入到依赖bean中时，每个协作bean在被注入到依赖bean之前都被完全配置好了。这意味着如果bean A依赖于bean B，那么在调用bean A的setter方法之前，Spring IoC容器完全配置bean B。换句话说，bean被实例化（如果不是预先实例化的单例），则设置其依赖关系，并调用相关的生命周期方法（例如[configured init method](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-factory-lifecycle-initializingbean)
+
+或者 the [InitializingBean callback method](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-factory-lifecycle-initializingbean)）。
 
