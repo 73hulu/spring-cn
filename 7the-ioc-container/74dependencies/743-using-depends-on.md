@@ -1,4 +1,4 @@
-如果bean是另一个bean的依赖项，通常意味着将一个bean设置为另一个bean的属性。通常，您可以使用基于XML的配置元数据中的`<ref />`元素[element](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-ref-element)来完成此操作。但是，有时bean之间的依赖关系不那么直接; 例如，需要触发类中的静态初始化程序，例如数据库驱动程序注册。在初始化使用此元素的bean之前，depends-on属性可以显式强制初始化一个或多个bean。以下示例使用depends-on属性表示对单个bean的依赖关系：
+如果bean是另一个bean的依赖项，通常意味着将一个bean设置为另一个bean的属性。通常，您可以使用基于XML的配置元数据中的`<ref />`元素[element](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-ref-element)来完成此操作。但是，**有时bean之间的依赖关系不那么直接**; 例如，需要触发类中的静态初始化程序，例如数据库驱动程序注册。在初始化使用此元素的bean之前，**depends-on属性可以显式强制初始化一个或多个bean**。以下示例使用depends-on属性表示对单个bean的依赖关系：
 
 ```
 <bean id="beanOne" class="ExampleBean" depends-on="manager"/>
