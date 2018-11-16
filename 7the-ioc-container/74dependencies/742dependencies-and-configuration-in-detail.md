@@ -258,6 +258,36 @@ public class Foo {
 
 #### Null and empty string values----空值和空字符串值
 
+pring将属性等的空参数视为空字符串。 以下基于XML的配置元数据片段将email属性设置为空String值（“”）。
+
+```
+<bean class="ExampleBean">
+    <property name="email" value=""/>
+</bean>
+```
+
+前面的示例等效于以下Java代码：
+
+```
+exampleBean.setEmail("");
+```
+
+`<null />`元素处理空值。 例如：
+
+```
+<bean class="ExampleBean">
+    <property name="email">
+        <null/>
+    </property>
+</bean>
+```
+
+以上配置等同于以下Java代码：
+
+```
+exampleBean.setEmail(null);
+```
+
 
 
 
