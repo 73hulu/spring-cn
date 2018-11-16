@@ -288,7 +288,7 @@ exampleBean.setEmail("");
 exampleBean.setEmail(null);
 ```
 
-#### XML shortcut with the p-namespace--带有p-namespace的XML快捷方式
+#### XML shortcut with the p-namespace----带有p-namespace的XML快捷方式
 
 p-namespace使您可以使用bean元素的属性而不是嵌套的&lt;property /&gt;元素来描述属性值或协作bean。
 
@@ -343,5 +343,45 @@ Spring支持具有命名空间的可扩展配置格式[with namespaces](https://
 
 > p-namespace不如标准XML格式灵活。例如，声明属性引用的格式与以Ref结尾的属性冲突，而标准XML格式则不然。我们建议您仔细选择您的方法并将其传达给您的团队成员，以避免生成同时使用所有三种方法的XML文档。
 
+#### XML shortcut with the c-namespace----带有c-namespace的XML快捷方式
 
+类似于[the section called “XML shortcut with the p-namespace”](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-p-namespace)，在Spring 3.1中新引入的c-namespace允许使用内联属性来配置构造函数参数，而不是嵌套的constructor-arg元素。
+
+让我们回顾一下使用c：namespace命名的“基于构造函数的依赖注入”[the section called “Constructor-based dependency injection”](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-constructor-injection)一节中的示例：
+
+```
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:c="http://www.springframework.org/schema/c"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="bar" class="x.y.Bar"/>
+    <bean id="baz" class="x.y.Baz"/>
+
+    <!-- traditional declaration -->
+    <bean id="foo" class="x.y.Foo">
+        <constructor-arg ref="bar"/>
+        <constructor-arg ref="baz"/>
+        <constructor-arg value="foo@bar.com"/>
+    </bean>
+
+    <!-- c-namespace declaration -->
+    <bean id="foo" class="x.y.Foo" c:bar-ref="bar" c:baz-ref="baz" c:email="foo@bar.com"/>
+
+</beans>
+```
+
+c:namespace使用与p：one（用于bean引用的trailing -ref）相同的约定，用于按名称设置构造函数参数。 同样，它需要声明，即使它没有在XSD架构中定义（但它存在于Spring核心内）。
+
+对于构造函数参数名称不可用的罕见情况（通常如果字节码是在没有调试信息的情况下编译的话），可以使用回退到参数索引：
+
+```
+<!-- c-namespace index declaration -->
+<bean id="foo" class="x.y.Foo" c:_0-ref="bar" c:_1-ref="baz"/>
+```
+
+> 由于XML语法，索引表示法要求存在前导\_，因为XML属性名称不能以数字开头（即使某些IDE允许它）。
+
+在实践中，构造函数解析机制[mechanism](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-factory-ctor-arguments-resolution)在匹配参数方面非常有效，因此除非确实需要，否则我们建议在整个配置中使用名称表示法。
 
