@@ -30,11 +30,11 @@
     * 4.2、Caching Improvements
     * 4.3、Web Improvements
     * 4.4、WebSocket Messaging Improvements
-    * 4.5、Testing Improvements
+    * [4.5、Testing Improvements](whats-new-in-spring-framework-4x/4new-features-and-enhancements-in-spring-framework-41/45testing-improvements.md)
   * [5.New Features and Enhancements in Spring Framework 4.2](whats-new-in-spring-framework-4x/5qq.md)
     * 5.1、Core Container Improvements
-    * 5.2、Data Access Improvements
-    * 5.3、JMS Improvements
+    * [5.2、Data Access Improvements](whats-new-in-spring-framework-4x/5qq/52data-access-improvements.md)
+    * [5.3、JMS Improvements](whats-new-in-spring-framework-4x/5qq/53jms-improvements.md)
     * 5.4、Web Improvements
     * 5.5、WebSocket Messaging Improvements
     * 5.6、Testing Improvements

@@ -154,7 +154,14 @@ public class SimpleMovieLister {
 >
 > 使用对特定类最有意义的DI样式。有时，在处理您没有第三方类的源码时，您会选择。 例如，如果第三方类没有公开任何setter方法，那么构造函数注入可能是唯一可用的DI形式。
 
+#### Dependency resolution process（依赖性解析过程）
 
+容器执行bean依赖性解析，如下所示：
 
+* ApplicationContext是使用描述所有bean的配置元数据创建和初始化的。可以通过XML，Java代码或注释指定配置元数据。
+* 对于每个bean，如果使用的是依赖于普通构造函数的，那么它的依赖关系将以属性，构造函数参数或static-factory方法的参数的形式表示。 实际创建bean时，会将这些依赖项提供给bean。
+* 每个属性或构造函数参数都是要设置实际定义的值，或者是对容器中另一个bean的引用。
+* 作为值的每个属性或构造函数参数都从其指定格式转换为该属性或构造函数参数的实际类型。默认Spring可以将以字符串格式提供的值转换为所有内置类型，例如int，long， 字符串，布尔值等
 
+在创建容器时，Spring容器验证每个bean的配置。然而，直到真正创建bean时，才会设置bean属性本身。当创建容器时，将创建单个作用域并设置为预实例化的bean\(默认\)。定义范围[Section 7.5, “Bean scopes”](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-factory-scopes)。 否则，仅在请求时才创建bean。创建bean可能会导致创建bean的图，因为创建和分配了bean的依赖项及其依赖项\(等等\)。注意，这些依赖项之间的解析不匹配可能出现得较晚，即在第一次创建受影响的bean时。
 
