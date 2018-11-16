@@ -217,7 +217,11 @@ sales=sales@example.com
 support=support@example.co.uk
 ```
 
+子属性集合的值集继承父&lt;props /&gt;的所有属性元素，子值的支持值覆盖父集合中的值。
 
+此合并行为同样适用于`<list />`，`<map />`和`<set />`集合类型。在`<list />`元素的特定情况下，保持与List集合类型相关联的语义，即有序的值集合的概念; 父级的值位于所有子级列表的值之前。对于`Map`，`Set`和`Properties`集合类型，不存在排序。因此，对于作为容器内部使用的关联`Map`，`Set`和`Properties`实现类型的基础的集合类型，没有排序语义。
 
+##### Limitations of collection merging---集合合并的局限性
 
+您不能合并不同的集合类型（例如`Map`和`List`），如果您尝试这样做，则会抛出相应的`Exception`。必须在较低的继承子定义上指定merge属性; 在父集合定义上指定merge属性是多余的，不会导致所需的合并。
 
