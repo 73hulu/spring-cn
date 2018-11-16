@@ -62,4 +62,5 @@
       * [7.4.2、Dependencies and configuration in detail](7the-ioc-container/74dependencies/742dependencies-and-configuration-in-detail.md)
       * [7.4.3、 Using depends-on](7the-ioc-container/74dependencies/743-using-depends-on.md)
       * [7.4.4、Lazy-initialized beans](7the-ioc-container/74dependencies/744lazy-initialized-beans.md)
+      * [7.4.5、Autowiring collaborators](7the-ioc-container/74dependencies/745.md)
 
