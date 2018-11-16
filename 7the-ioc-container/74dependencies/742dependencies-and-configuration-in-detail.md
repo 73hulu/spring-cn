@@ -288,7 +288,60 @@ exampleBean.setEmail("");
 exampleBean.setEmail(null);
 ```
 
+#### XML shortcut with the p-namespace--带有p-namespace的XML快捷方式
 
+p-namespace使您可以使用bean元素的属性而不是嵌套的&lt;property /&gt;元素来描述属性值或协作bean。
+
+Spring支持具有命名空间的可扩展配置格式[with namespaces](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#xsd-configuration)，这些命名空间基于XML Schema定义。 本章中讨论的bean配置格式在XML Schema文档中定义。但是，p-namespace未在XSD文件中定义，仅存在于Spring的核心中。
+
+以下示例显示了两个解析为相同结果的XML片段：第一个使用标准XML格式，第二个使用p-namespace。
+
+```
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean name="classic" class="com.example.ExampleBean">
+        <property name="email" value="foo@bar.com"/>
+    </bean>
+
+    <bean name="p-namespace" class="com.example.ExampleBean"
+        p:email="foo@bar.com"/>
+</beans>
+```
+
+该示例显示了bean定义中名为email的p-namespace中的属性。这告诉Spring包含一个属性声明。如前所述，p-namespace没有架构定义，因此您可以将属性的名称设置为property属性名称。
+
+下一个示例包括另外两个bean定义，它们都引用了另一个bean：
+
+```
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean name="john-classic" class="com.example.Person">
+        <property name="name" value="John Doe"/>
+        <property name="spouse" ref="jane"/>
+    </bean>
+
+    <bean name="john-modern"
+        class="com.example.Person"
+        p:name="John Doe"
+        p:spouse-ref="jane"/>
+
+    <bean name="jane" class="com.example.Person">
+        <property name="name" value="Jane Doe"/>
+    </bean>
+</beans>
+```
+
+如您所见，此示例不仅包含使用p-namespace的属性值，还使用特殊格式来声明属性引用。第一个bean定义使用&lt;property name =“spouse”ref =“jane”/&gt;来创建从bean john到bean jane的引用，而第二个bean定义使用p:spouse-ref =“jane”作为要执行的属性 完全相同的事情。在这种情况下，spouse是属性名称，而-ref部分表示这不是直接值，而是对另一个bean的引用。
+
+> p-namespace不如标准XML格式灵活。例如，声明属性引用的格式与以Ref结尾的属性冲突，而标准XML格式则不然。我们建议您仔细选择您的方法并将其传达给您的团队成员，以避免生成同时使用所有三种方法的XML文档。
 
 
 
