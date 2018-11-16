@@ -55,7 +55,7 @@ Spring容器通过使用JavaBeans `PropertyEditor`机制将`<value />`元素内�
 
 ##### The idref element----idref元素
 
-`idref`元素只是一种防错方法，可以将容器中另一个bean的id（字符串值 - 而不是引用）传递给`<constructor-arg />`或`<property />`元素。
+`idref`元素只是一种防错方法，可以将容器中另一个bean的**id（字符串值 - 而不是引用）**传递给`<constructor-arg />`或`<property />`元素。
 
 ```
 <bean id="theTargetBean" class="..."/>
@@ -77,9 +77,9 @@ Spring容器通过使用JavaBeans `PropertyEditor`机制将`<value />`元素内�
 </bean>
 ```
 
-第一种形式优于第二种形式，因为使用`idref`标签允许容器在部署时验证引用的命名bean实际存在。在第二个变体中，不对传递给客户端bean的`targetName`属性的值执行验证。只有当`client `bean实际实例化时，才会发现输入错误\(最有可能导致致命的结果\)。如果`client`bean是原型bean，则只能在部署容器后很长时间才能发现此错误和产生的异常。
+第一种形式优于第二种形式，因为使用`idref`标签允许容器在部署时验证引用的命名bean实际存在。在第二个变体中，不对传递给客户端bean的`targetName`属性的值执行验证。只有当`client`bean实际实例化时，才会发现输入错误\(最有可能导致致命的结果\)。如果`client`bean是原型bean，则只能在部署容器后很长时间才能发现此错误和产生的异常。
 
 > 4.0 beans xsd不再支持idref元素的local属性，因为它不再提供常规bean引用的值。在升级到4.0模式时，只需将现有的idref本地引用更改为idref bean。
 
-`<idref />`元素带来值的一个常见位置（至少在Spring 2.0之前的版本中）是在`ProxyFactoryBean `bean定义中的AOP拦截器的配置中。 指定拦截器名称时使用`<idref />`元素可以防止拼写错误的拦截器ID。
+`<idref />`元素带来值的一个常见位置（至少在Spring 2.0之前的版本中）是在`ProxyFactoryBean`bean定义中的AOP拦截器的配置中。 指定拦截器名称时使用`<idref />`元素可以防止拼写错误的拦截器ID。
 
