@@ -124,5 +124,9 @@ public abstract class CommandManager {
 }
 ```
 
+请注意，您通常会使用具体的存根实现来声明这种带注释的查找方法，以使它们与Spring的组件扫描规则兼容，其中默认情况下抽象类被忽略。此限制不适用于显式注册或显式导入的bean类。
 
+访问不同范围的目标bean的另一种方法是ObjectFactory / Provider注入点。 查看[“Scoped beans as dependencies”](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-factory-scopes-other-injection)
+
+感兴趣的读者也可以找到ServiceLocatorFactoryBean（在org.springframework.beans.factory.config包中）。
 
