@@ -385,3 +385,17 @@ c:namespace使用与p：one（用于bean引用的trailing -ref）相同的约定
 
 在实践中，构造函数解析机制[mechanism](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-factory-ctor-arguments-resolution)在匹配参数方面非常有效，因此除非确实需要，否则我们建议在整个配置中使用名称表示法。
 
+#### Compound property names----复合属性名称
+
+只要除最终属性名称之外的路径的所有组件都不为null，您可以在设置bean属性时使用复合或嵌套属性名称。
+
+请考虑以下bean定义。
+
+```
+<bean id="foo" class="foo.Bar">
+    <property name="fred.bob.sammy" value="123" />
+</bean>
+```
+
+foo bean有一个fred属性，它有一个bob属性，它有一个sammy属性，最后的sammy属性被设置为值123。为了使其工作，在构造bean之后，foo的fred属性和fred的bob属性不能为null，否则抛出NullPointerException。
+
