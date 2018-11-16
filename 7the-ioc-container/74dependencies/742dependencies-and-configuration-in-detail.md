@@ -117,5 +117,23 @@ Spring容器通过使用JavaBeans `PropertyEditor`机制将`<value />`元素内�
 
 #### Inner beans----内部类
 
+`<property />`或`<constructor-arg />`元素中的`<bean />`元素定义了一个所谓的内部bean。
+
+```
+<bean id="outer" class="...">
+    <!-- instead of using a reference to a target bean, simply define the target bean inline -->
+    <property name="target">
+        <bean class="com.example.Person"> <!-- this is the inner bean -->
+            <property name="name" value="Fiona Apple"/>
+            <property name="age" value="25"/>
+        </bean>
+    </property>
+</bean>
+```
+
+内部bean定义不需要定义的id或名称; 如果指定，则容器不使用这样的值作为标识符。容器还会在创建时忽略scope作用域标志：内部bean总是匿名的，它们总是使用外部bean创建。无法将内部bean注入协作bean，而不是将其注入封闭bean或独立访问它们。
+
+作为极端情况，可以从自定义范围接收销毁回调，例如， 对于包含在单例bean中的请求范围的内部bean：内部bean实例的创建将绑定到其包含的bean，但是销毁回调允许它参与请求范围的生命周期。 这不是常见的情况; 内部bean通常只是共享其包含bean的范围。
+
 
 
