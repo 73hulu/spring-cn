@@ -181,7 +181,123 @@ Circular dependencies（循环依赖）
 
 您通常可以相信Spring会做正确的事情。它在容器装载时检测配置问题，例如对不存在的bean和循环依赖项的引用。在实际创建bean时，Spring尽可能晚地设置属性并解析依赖关系。这意味着，如果在创建该对象或其依赖项时出现问题，那么在以后请求对象时，正确加载的Spring容器可以生成异常。例如，bean由于丢失或无效属性而抛出异常。某些配置问题可能会延迟可见性，这就是为什么ApplicationContext实现在默认情况下预实例化单例bean。在实际需要这些bean之前先花一些时间和内存来创建它们，在创建ApplicationContext时\(而不是稍后\)，您会发现配置问题。您仍然可以覆盖此默认行为，以便单例bean将延迟初始化，而不是预先实例化。
 
-如果不存在循环依赖项，当一个或多个协作bean被注入到依赖bean中时，每个协作bean在被注入到依赖bean之前都被完全配置好了。这意味着如果bean A依赖于bean B，那么在调用bean A的setter方法之前，Spring IoC容器完全配置bean B。换句话说，bean被实例化（如果不是预先实例化的单例），则设置其依赖关系，并调用相关的生命周期方法（例如[configured init method](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-factory-lifecycle-initializingbean)
+如果不存在循环依赖项，当一个或多个协作bean被注入到依赖bean中时，每个协作bean在被注入到依赖bean之前都被完全配置好了。这意味着如果bean A依赖于bean B，那么在调用bean A的setter方法之前，Spring IoC容器完全配置bean B。换句话说，bean被实例化（如果不是预先实例化的单例），则设置其依赖关系，并调用相关的生命周期方法（例如[configured init method](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-factory-lifecycle-initializingbean)或者 the [InitializingBean callback method](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-factory-lifecycle-initializingbean)）。
 
-或者 the [InitializingBean callback method](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-factory-lifecycle-initializingbean)）。
+#### Examples of dependency injection（依赖注入的例子）
+
+以下示例将基于XML的配置元数据用于基于setter的DI。 Spring XML配置文件的一小部分指定了一些bean定义：
+
+```
+<bean id="exampleBean" class="examples.ExampleBean">
+    <!-- setter injection using the nested ref element -->
+    <property name="beanOne">
+        <ref bean="anotherExampleBean"/>
+    </property>
+
+    <!-- setter injection using the neater ref attribute -->
+    <property name="beanTwo" ref="yetAnotherBean"/>
+    <property name="integerProperty" value="1"/>
+</bean>
+
+<bean id="anotherExampleBean" class="examples.AnotherBean"/>
+<bean id="yetAnotherBean" class="examples.YetAnotherBean"/>
+```
+
+```
+public class ExampleBean {
+
+    private AnotherBean beanOne;
+
+    private YetAnotherBean beanTwo;
+
+    private int i;
+
+    public void setBeanOne(AnotherBean beanOne) {
+        this.beanOne = beanOne;
+    }
+
+    public void setBeanTwo(YetAnotherBean beanTwo) {
+        this.beanTwo = beanTwo;
+    }
+
+    public void setIntegerProperty(int i) {
+        this.i = i;
+    }
+}
+```
+
+在前面的示例中，setter被声明为与XML文件中指定的属性匹配。 以下示例使用基于构造函数的DI：
+
+```
+<bean id="exampleBean" class="examples.ExampleBean">
+    <!-- constructor injection using the nested ref element -->
+    <constructor-arg>
+        <ref bean="anotherExampleBean"/>
+    </constructor-arg>
+
+    <!-- constructor injection using the neater ref attribute -->
+    <constructor-arg ref="yetAnotherBean"/>
+
+    <constructor-arg type="int" value="1"/>
+</bean>
+
+<bean id="anotherExampleBean" class="examples.AnotherBean"/>
+<bean id="yetAnotherBean" class="examples.YetAnotherBean"/>
+```
+
+```
+public class ExampleBean {
+
+    private AnotherBean beanOne;
+
+    private YetAnotherBean beanTwo;
+
+    private int i;
+
+    public ExampleBean(
+        AnotherBean anotherBean, YetAnotherBean yetAnotherBean, int i) {
+        this.beanOne = anotherBean;
+        this.beanTwo = yetAnotherBean;
+        this.i = i;
+    }
+}
+```
+
+bean定义中指定的构造函数参数将用作ExampleBean的构造函数的参数。
+
+现在考虑这个示例的变体，其中不是使用构造函数，而是告诉Spring调用静态工厂方法来返回对象的实例：
+
+```
+<bean id="exampleBean" class="examples.ExampleBean" factory-method="createInstance">
+    <constructor-arg ref="anotherExampleBean"/>
+    <constructor-arg ref="yetAnotherBean"/>
+    <constructor-arg value="1"/>
+</bean>
+
+<bean id="anotherExampleBean" class="examples.AnotherBean"/>
+<bean id="yetAnotherBean" class="examples.YetAnotherBean"/>
+```
+
+```
+public class ExampleBean {
+
+    // a private constructor
+    private ExampleBean(...) {
+        ...
+    }
+
+    // a static factory method; the arguments to this method can be
+    // considered the dependencies of the bean that is returned,
+    // regardless of how those arguments are actually used.
+    public static ExampleBean createInstance (
+        AnotherBean anotherBean, YetAnotherBean yetAnotherBean, int i) {
+
+        ExampleBean eb = new ExampleBean (...);
+        // some other operations...
+        return eb;
+    }
+}
+```
+
+
 
