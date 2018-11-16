@@ -185,3 +185,39 @@ Spring容器还支持集合的合并。应用程序开发人员可以定义父�
 
 关于合并的这一部分讨论了父子bean机制。 不熟悉父母和子bean定义的读者可能希望在继续之前阅读相关部分[_relevant section_](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-child-bean-definitions)。
 
+以下示例演示了集合合并：
+
+```
+<beans>
+    <bean id="parent" abstract="true" class="example.ComplexObject">
+        <property name="adminEmails">
+            <props>
+                <prop key="administrator">administrator@example.com</prop>
+                <prop key="support">support@example.com</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="child" parent="parent">
+        <property name="adminEmails">
+            <!-- the merge is specified on the child collection definition -->
+            <props merge="true">
+                <prop key="sales">sales@example.com</prop>
+                <prop key="support">support@example.co.uk</prop>
+            </props>
+        </property>
+    </bean>
+<beans>
+```
+
+请注意在子bean定义的`adminEmails`属性的`<props />`元素上使用`merge = true`属性。当容器解析并实例化子bean时，生成的实例有一个`adminEmails`属性集合，其中包含子项的adminEmails集合与父项的adminEmails集合的合并结果。
+
+```
+administrator=administrator@example.com
+sales=sales@example.com
+support=support@example.co.uk
+```
+
+
+
+
+
