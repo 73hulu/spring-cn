@@ -39,3 +39,13 @@ public class CommandManager implements ApplicationContextAware {
 
 您可以阅读更多关于方法注入的动机 [this blog entry](https://spring.io/blog/2004/08/06/method-injection/)。
 
+#### Lookup method injection----查找方法注入
+
+Lookup方法注入是容器覆盖容器托管bean上的方法的能力，以返回容器中另一个命名bean的查找结果。查找通常涉及原型bean，如上一节中描述的场景。Spring Framework通过使用CGLIB库中的字节码生成来实现此方法注入，以动态生成覆盖该方法的子类。
+
+> * 要使这个动态子类工作，Spring bean容器将子类化的类不能是final，并且要重写的方法也不能是final。
+> * 对具有抽象方法的类进行单元测试需要您自己对类进行子类化，并提供抽象方法的存根实现。
+> * 组件扫描也需要具体方法，这需要具体的类别来获取。
+
+
+
