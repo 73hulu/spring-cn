@@ -60,4 +60,5 @@
     * [7.4、Dependencies](7the-ioc-container/74dependencies.md)
       * [7.4.1、Dependency Injection](7the-ioc-container/74dependencies/741dependency-injection.md)
       * [7.4.2、Dependencies and configuration in detail](7the-ioc-container/74dependencies/742dependencies-and-configuration-in-detail.md)
+      * [7.4.3、 Using depends-on](7the-ioc-container/74dependencies/743-using-depends-on.md)
 
