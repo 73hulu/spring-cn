@@ -17,8 +17,8 @@
 | [websocket](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#websocket-stomp-websocket-scope) | 将单个bean定义范围限定为WebSocket的生命周期。 仅在Web感知Spring ApplicationContext的上下文中有效。 |
 
 > 从Spring 3.0开始，thread scope可用，但默认情况下未注册。有关更多信息，请参阅SimpleThreadScope的文档。有关如何注册此自定义范围或任何其他自定义范围的说明，请查阅[the section called “Using a custom scope”](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-factory-scopes-custom-using)
->
-> .
+
+
 
 
 
