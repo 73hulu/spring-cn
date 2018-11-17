@@ -35,7 +35,7 @@ public class CommandManager implements ApplicationContextAware {
 }
 ```
 
-前面的内容是不可取的，因为业务代码知道并耦合到Spring Framework。Method Injection是Spring IoC容器的一个高级功能，它允许以干净的方式处理这个用例。
+前面的内容是不可取的，因为业务代码耦合到Spring Framework。Method Injection是Spring IoC容器的一个高级功能，它允许以干净的方式处理这个问题。
 
 您可以阅读更多关于方法注入的动机 [this blog entry](https://spring.io/blog/2004/08/06/method-injection/)。
 
@@ -90,7 +90,7 @@ public abstract class CommandManager {
 </bean>
 ```
 
-标识为commandManager的bean在需要myCommand bean的新实例时调用自己的方法createCommand（）。您必须小心将myCommand bean部署为原型，如果这实际上是需要的话。如果它是一个单例[singleton](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-factory-scopes-singleton)，则每次都返回myCommand bean的相同实例。
+标识为commandManager的bean在需要myCommand bean的新实例时调用自己的方法createCommand（）。您必须小心将myCommand bean部署为原型，如果这就是我们需要的。如果它是一个单例[singleton](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-factory-scopes-singleton)，则每次都返回myCommand bean的相同实例。
 
 或者，在基于注释的组件模型中，您可以通过@Lookup批注声明查找方法：
 

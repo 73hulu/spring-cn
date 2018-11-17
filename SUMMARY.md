@@ -64,4 +64,5 @@
       * [7.4.4、Lazy-initialized beans](7the-ioc-container/74dependencies/744lazy-initialized-beans.md)
       * [7.4.5、Autowiring collaborators](7the-ioc-container/74dependencies/745.md)
       * [7.4.6、Method injection](7the-ioc-container/74dependencies/746method-injection.md)
+    * 7.5、Bean scopes
 
