@@ -8,7 +8,7 @@
 
 | Scope | Description |
 | :--- | :--- |
-|  |  |
+| [singleton](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-factory-scopes-singleton) |  |
 |  |  |
 |  |  |
 |  |  |
