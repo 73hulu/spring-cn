@@ -81,5 +81,15 @@ public class UserPreferences {
 }
 ```
 
+#### Global session scope
+
+考虑以下bean定义的XML配置：
+
+```
+<bean id="userPreferences" class="com.foo.UserPreferences" scope="globalSession"/>
+```
+
+globalSession作用域类似于标准HTTP Session 作用域（如上所述），仅适用于基于portlet的Web应用程序的上下文。portlet规范定义了构成单个portlet Web应用程序的所有portlet之间共享的全局Session的概念。在globalSession作用域中定义的bean的作用域\(或绑定\)限于全局portlet会话的生命周期。如果编写基于Servlet的标准Web应用程序并将一个或多个bean定义为具有globalSession作用域，则使用标准HTTP `Session`作用域，并且不会引发错误。
+
 
 
