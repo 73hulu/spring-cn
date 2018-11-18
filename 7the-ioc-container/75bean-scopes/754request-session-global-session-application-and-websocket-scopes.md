@@ -1,0 +1,2 @@
+request, session, globalSession, application, 和websocket 作用域仅在您使用Web感知的Spring ApplicationContext实现（例如XmlWebApplicationContext）时才可用。如果您将这些作用域与常规的Spring IoC容器\(如ClassPathXmlApplicationContext\)一起使用，则会抛出一个IllegalStateException来表示一个未知的bean作用域。
+
