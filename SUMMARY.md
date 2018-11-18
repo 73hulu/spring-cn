@@ -65,4 +65,5 @@
       * [7.4.5、Autowiring collaborators](7the-ioc-container/74dependencies/745.md)
       * [7.4.6、Method injection](7the-ioc-container/74dependencies/746method-injection.md)
     * [7.5、Bean scopes](7the-ioc-container/75bean-scopes.md)
+      * [7.5.1、The singleton scope](7the-ioc-container/75bean-scopes/751the-singleton-scope.md)
 
