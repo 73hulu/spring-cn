@@ -115,3 +115,15 @@ public class AppPreferences {
 
 Spring IoC容器不仅管理对象（bean）的实例化，还管理协作者（或依赖关系）的连接。如果要将（例如）HTTP请求作用域bean注入到具有较长寿命范围的另一个bean中，您可以选择注入AOP代理来代替作用域bean。也就是说，您需要注入一个代理对象，该代理对象公开与作用域对象相同的公共接口，但它也可以从相关的作用域\(例如HTTP请求\)检索实际目标对象，并将方法调用委托给实际对象。
 
+> 您还可以在作用域为singleton的bean之间使用&lt;aop:scoped-proxy/&gt;，然后引用通过一个可序列化的中间代理，从而能够在反序列化时重新获得目标singleton bean。
+>
+> 当对作用域为原型的bean声明&lt;aop:scoped-proxy/&gt;，对共享代理的每个方法调用都将创建一个新的目标实例，然后将调用转发给这个实例。
+>
+> 此外，作用域代理并不是以生命周期安全的方式从较短的作用域访问bean的唯一方法。您也可以简单地将您的注入点（即构造函数/ setter参数或自动装配字段）声明为ObjectFactory &lt;MyTargetBean&gt;，允许getObject（）调用在每次需要时按需检索当前实例 - 而无需保留 实例或单独存储它。
+>
+> 作为扩展变体，您可以声明ObjectProvider &lt;MyTargetBean&gt;，它提供了几个额外的访问变体，包括getIfAvailable和getIfUnique。
+>
+> JSR-330的变体称为Provider，与Provider &lt;MyTargetBean&gt;声明一起使用，并且对每次检索尝试都使用相应的get（）调用。 有关JSR-330整体的更多详细信息，请参见此处。
+
+
+
