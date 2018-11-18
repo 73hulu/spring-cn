@@ -113,5 +113,5 @@ public class AppPreferences {
 
 #### Scoped beans as dependencies
 
-
+Spring IoC容器不仅管理对象（bean）的实例化，还管理协作者（或依赖关系）的连接。如果要将（例如）HTTP请求作用域bean注入到具有较长寿命范围的另一个bean中，您可以选择注入AOP代理来代替作用域bean。也就是说，您需要注入一个代理对象，该代理对象公开与作用域对象相同的公共接口，但它也可以从相关的作用域\(例如HTTP请求\)检索实际目标对象，并将方法调用委托给实际对象。
 
