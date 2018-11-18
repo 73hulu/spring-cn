@@ -41,3 +41,25 @@
 
 DispatcherServlet, RequestContextListener, 和RequestContextFilter所有都做同样的事情，即将HTTP请求对象绑定到为该请求提供服务的Thread。这使得请求和会话范围的bean可以在调用链的下游进一步使用。
 
+#### Request scope
+
+考虑以下bean定义的XML配置:
+
+```
+<bean id="loginAction" class="com.foo.LoginAction" scope="request"/>
+```
+
+Spring容器通过对每个HTTP请求使用loginAction bean定义来创建LoginAction bean的新实例。也就是说，loginAction bean的作用域是在HTTP请求级别。您可以随意更改创建的实例的内部状态，因为从相同的loginAction bean定义创建的其他实例不会看到状态的变化;它们是特定于单个请求的。当请求完成处理时，作用域为该请求的bean将被丢弃。
+
+使用注释驱动的组件或Java Config时，可以使用`@RequestScope`注释将组件分配给request scope。
+
+```
+@RequestScope
+@Component
+public class LoginAction {
+    // ...
+}
+```
+
+
+
