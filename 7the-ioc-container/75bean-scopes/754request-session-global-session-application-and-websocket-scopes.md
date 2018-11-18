@@ -111,5 +111,7 @@ public class AppPreferences {
 }
 ```
 
+#### Scoped beans as dependencies
+
 
 
