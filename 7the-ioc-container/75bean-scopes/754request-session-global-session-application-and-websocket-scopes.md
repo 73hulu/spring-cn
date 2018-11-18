@@ -49,7 +49,7 @@ DispatcherServlet, RequestContextListener, 和RequestContextFilter所有都做�
 <bean id="loginAction" class="com.foo.LoginAction" scope="request"/>
 ```
 
-Spring容器通过对每个HTTP请求使用loginAction bean定义来创建LoginAction bean的新实例。也就是说，loginAction bean的作用域是在HTTP请求级别。您可以随意更改创建的实例的内部状态，因为从相同的loginAction bean定义创建的其他实例不会看到状态的变化;它们是特定于单个请求的。当请求完成处理时，作用域为该请求的bean将被丢弃。
+Spring容器通过对每个HTTP request使用loginAction bean定义来创建LoginAction bean的新实例。也就是说，loginAction bean的作用域是在HTTP request级别。您可以随意更改创建的实例的内部状态，因为从相同的loginAction bean定义创建的其他实例不会看到状态的变化;它们是特定于单个请求的。当请求完成处理时，作用域为该请求的bean将被丢弃。
 
 使用注释驱动的组件或Java Config时，可以使用`@RequestScope`注释将组件分配给request scope。
 
@@ -57,6 +57,26 @@ Spring容器通过对每个HTTP请求使用loginAction bean定义来创建LoginA
 @RequestScope
 @Component
 public class LoginAction {
+    // ...
+}
+```
+
+#### Session scope
+
+考虑以下bean定义的XML配置:
+
+```
+<bean id="userPreferences" class="com.foo.UserPreferences" scope="session"/>
+```
+
+Spring容器通过在单个HTTP  Session的生存期内使用userPreferences bean定义来创建UserPreferences bean的新实例。换句话说，userPreferences bean在HTTP Session级别有效地作用域。与request范围的bean一样，您可以根据需要更改创建的实例的内部状态，因为知道同样使用从同一userPreferences bean定义创建的实例的其他HTTP Session实例在状态中看不到这些更改 ，因为它们特定于单个HTTP会话。当HTTP Session最终被丢弃时，作用于特定HTTP Session的bean也被丢弃。
+
+在使用注释驱动组件或Java配置时，可以使用@SessionScope注释将组件分配给Session scope。
+
+```
+@SessionScope
+@Component
+public class UserPreferences {
     // ...
 }
 ```
