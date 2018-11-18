@@ -91,5 +91,25 @@ public class UserPreferences {
 
 globalSession作用域类似于标准HTTP Session 作用域（如上所述），仅适用于基于portlet的Web应用程序的上下文。portlet规范定义了构成单个portlet Web应用程序的所有portlet之间共享的全局Session的概念。在globalSession作用域中定义的bean的作用域\(或绑定\)限于全局portlet会话的生命周期。如果编写基于Servlet的标准Web应用程序并将一个或多个bean定义为具有globalSession作用域，则使用标准HTTP `Session`作用域，并且不会引发错误。
 
+#### Application scope
+
+考虑以下bean定义的XML配置：
+
+```
+<bean id="appPreferences" class="com.foo.AppPreferences" scope="application"/>
+```
+
+Spring容器通过对整个Web应用程序使用appPreferences bean定义一次来创建AppPreferences bean的新实例。也就是说，appPreferences bean的作用域是ServletContext级别，存储为常规的ServletContext属性。这有点类似于Spring单例bean，但在两个重要方面有所不同：它是每个ServletContext的单例，而不是每个Spring的'ApplicationContext'（在任何给定的Web应用程序中可能有几个），它实际上是公开的，因此可以看作ServletContext属性。
+
+使用注释驱动的组件或Java Config时，可以使用@ApplicationScope注释将组件分配给应用程序范围。
+
+```
+@ApplicationScope
+@Component
+public class AppPreferences {
+    // ...
+}
+```
+
 
 
