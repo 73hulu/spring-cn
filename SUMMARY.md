@@ -66,4 +66,5 @@
       * [7.4.6、Method injection](7the-ioc-container/74dependencies/746method-injection.md)
     * [7.5、Bean scopes](7the-ioc-container/75bean-scopes.md)
       * [7.5.1、The singleton scope](7the-ioc-container/75bean-scopes/751the-singleton-scope.md)
+      * [7.5.2、The prototype scope](7the-ioc-container/75bean-scopes/752the-prototype-scope.md)
 
