@@ -10,7 +10,7 @@
 | BeanFactoryAware | 声明BeanFactory | [Section 7.6.2, “ApplicationContextAware and BeanNameAware”](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-factory-aware) |
 | BeanNameAware | 声明bean的名称 | [Section 7.6.2, “ApplicationContextAware and BeanNameAware”](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-factory-aware) |
 | BootstrapContextAware | 容器运行的资源适配器BootstrapContext。通常仅在JCA感知的ApplicationContexts中可用 | [Chapter 32, JCA CCI](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#cci) |
-| LoadTimeWeaverAware | 定义的weaver用于在加载时处理类定义 | [Section 11.8.4, “Load-time weaving with AspectJ in the Spring Framework”](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#aop-aj-ltw) |
+| LoadTimeWeaverAware | 定义的weaver用于在加载时处理类定义 | [Section 11.8.4, “Load-time weaving with AspectJ in the Spring Framework”](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#aop-aj-ltw) |
 | MessageSourceAware | 用于解析消息的已配置策略（支持参数化和国际化） | [Section 7.15, “Additional capabilities of the ApplicationContext”](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#context-introduction) |
 | NotificationPublisherAware | Spring JMX通知发布者 | [Section 31.7, “Notifications”](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#jmx-notifications) |
 | PortletConfigAware | 容器运行的当前PortletConfig。仅在Web感知的Spring ApplicationContext中有效 | [Chapter 25, Portlet MVC Framework](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#portlet) |
@@ -19,5 +19,5 @@
 | ServletConfigAware | 当前ServletConfig容器运行。仅在Web感知的Spring ApplicationContext中有效 | [Chapter 22, Web MVC framework](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#mvc) |
 | ServletContextAware | 容器运行的当前ServletContext。仅在Web感知的Spring ApplicationContext中有效 | [Chapter 22, Web MVC framework](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#mvc) |
 
-
+再次注意，这些接口的使用将您的代码与Spring API联系起来，并且不遵循Inversion of Control样式。因此，建议将它们用于需要以编程方式访问容器的基础结构bean。
 
