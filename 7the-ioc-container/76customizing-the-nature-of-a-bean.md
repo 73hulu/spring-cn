@@ -2,3 +2,9 @@
 
 表7.4  Aware接口
 
+| Name | Injected Dependency  注入依赖 | Explained in…​   解释在...... |
+| :--- | :--- | :--- |
+| ApplicationContextAware | 声明ApplicationContext |  |
+
+
+
