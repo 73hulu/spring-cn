@@ -173,5 +173,36 @@ public interface Lifecycle {
 
 任何Spring管理的对象都可以实现该接口。然后，当`ApplicationContext`本身接收到启动和停止信号时，例如， 对于运行时的停止/重新启动方案，它会将这些调用级联到该上下文中定义的所有生命周期`Lifecycle说`实现。它通过委托给`LifecycleProcessor`来实现：
 
+```
+public interface LifecycleProcessor extends Lifecycle {
+
+    void onRefresh();
+
+    void onClose();
+}
+```
+
+请注意，`LifecycleProcessor`本身是`Lifecycle`接口的扩展。它还添加了另外两种方法来响应刷新和关闭的上下文。
+
+> 请注意，常规`org.springframework.context.Lifecycle`接口只是显式启动/停止通知的简单合约，并不意味着在上下文刷新时自动启动。考虑实现`org.springframework.context.SmartLifecycle`，以便对特定bean的自动启动进行细粒度控制（包括启动阶段）。另请注意，在销毁之前不能保证停止通知：在常规关闭时，所有生命周期 bean将在传播一般销毁回调之前首先收到停止通知; 但是，在上下文生命周期中的热刷新或中止刷新尝试时，只会调用destroy方法。
+
+启动和关闭调用的顺序非常重要。如果任何两个对象之间存在“依赖”关系，则依赖方将在其依赖之后启动，并且它将在其依赖之前停止。但是，有时直接依赖性是未知的。您可能只知道某种类型的对象应该在另一种类型的对象之前开始。在这些情况下，SmartLifecycle接口定义了另一个选项，即在其超级接口Phased上定义的getPhase（）方法。
+
+```
+public interface Phased {
+
+    int getPhase();
+}
+```
+
+```
+public interface SmartLifecycle extends Lifecycle, Phased {
+
+    boolean isAutoStartup();
+
+    void stop(Runnable callback);
+}
+```
+
 
 
