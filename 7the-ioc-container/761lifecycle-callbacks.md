@@ -4,5 +4,21 @@
 >
 > 如果您不想使用JSR-250注释但仍希望删除耦合，请考虑使用init-method和destroy-method对象定义元数据。
 
-在内部，Spring Framework使用`BeanPostProcessor`实现来处理它可以找到的任何回调接口并调用适当的方法。如果您需要自定义特性或Spring不提供的其他生命周期行为，您可以自己实现BeanPostProcessor。 欲获得更多信息，请查看[Section 7.8, “Container Extension Points”](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-factory-extension)。
+在内部，Spring Framework使用`BeanPostProcessor`实现来处理它可以找到的任何回调接口并调用适当的方法。如果您需要自定义特性或Spring不提供的其他生命周期行为，您可以自己实现BeanPostProcessor。 欲获得更多信息，请查看[Section 7.8, “Container Extension Points”](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-factory-extension)。
+
+除了初始化和销毁回调之外，Spring管理的对象还可以实现Lifecycle接口，以便这些对象可以参与由容器自身生命周期驱动的启动和关闭过程。
+
+本节描述了生命周期回调接口。
+
+#### Initialization callbacks----初始化回调
+
+`org.springframework.beans.factory.InitializingBean`接口允许bean在容器设置bean的所有必要属性后执行初始化工作。InitializingBean接口指定一个方法：
+
+```
+void afterPropertiesSet() throws Exception;
+```
+
+
+
+
 
