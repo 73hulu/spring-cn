@@ -73,4 +73,5 @@
     * [7.6、Customizing the nature of a bean](7the-ioc-container/76customizing-the-nature-of-a-bean.md)
       * [7.6.1、Lifecycle callbacks](7the-ioc-container/761lifecycle-callbacks.md)
       * [7.6.2、ApplicationContextAware and BeanNameAware](7the-ioc-container/762applicationcontextaware-and-beannameaware.md)
+      * 7.6.3、Other Aware interfaces
 
