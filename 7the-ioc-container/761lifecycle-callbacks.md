@@ -98,7 +98,7 @@ public class AnotherExampleBean implements DisposableBean {
 
 当您编写初始化和销毁不使用特定于Spring的`InitializingBean`和`DisposableBean`回调接口的方法回调时，通常会编写名称为`init（）`，`initialize（）`，`dispose（）`等的方法。理想情况下，此类生命周期回调方法的名称在项目中是标准化的，以便所有开发人员使用相同的方法名称并确保一致性。
 
-您可以配置Spring容器以查找命名初始化并销毁每个bean上的回调方法名称。这意味着，作为应用程序开发人员，您可以编写应用程序类并使用名为init（）的初始化回调，而无需为每个bean定义配置init-method =“init”属性。Spring IoC容器在创建bean时调用该方法（并且符合前面描述的标准生命周期回调契约）。此功能还强制执行初始化和销毁方法回调的一致命名约定。
+您可以配置Spring容器以查找`look`命名初始化并销毁每个bean上的回调方法名称。这意味着，作为应用程序开发人员，您可以编写应用程序类并使用名为init（）的初始化回调，而无需为每个bean定义配置init-method =“init”属性。Spring IoC容器在创建bean时调用该方法（并且按照前面描述的标准生命周期回调契约）。此功能还强制执行初始化和销毁方法回调的一致命名约定。
 
 假设您的初始化回调方法名为init（），而destroy回调方法名为destroy（）。 您的类将类似于以下示例中的类。
 
@@ -130,5 +130,11 @@ public class DefaultBlogService implements BlogService {
 </beans>
 ```
 
+顶级`<beans />`元素属性上存在`default-init-method`属性会导致Spring IoC容器将bean上的`init`方法识别为初始化方法回调。在创建和组装bean时，如果bean类有这样的方法，就在适当的时候调用它。
 
+您可以通过在顶级`<beans />`元素上使用`default-destroy-method`属性来类似地配置destroy方法回调（在XML中）。
+
+如果现有bean类已经具有以约定方式命名的回调方法，则可以通过使用init-method和&lt;bean /&gt;的destroy-method属性指定（在XML中，）方法名称来覆盖缺省值。
+
+Spring容器保证在为bean提供所有依赖项之后立即调用已配置的初始化回调。因此，在原始bean引用上调用初始化回调，这意味着AOP拦截器等尚未应用于bean。首先完整地创建目标bean，然后应用AOP代理\(例如\)及其拦截器链。如果目标bean和代理是分开定义的，那么您的代码甚至可以绕过代理与原始目标bean进行交互。因此，将拦截器应用到init方法将是不一致的，因为这样做将把目标bean的生命周期与其代理/拦截器结合起来，并且在代码直接与原始目标bean交互时留下奇怪的语义。
 
