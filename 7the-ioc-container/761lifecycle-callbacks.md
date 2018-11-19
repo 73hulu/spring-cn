@@ -94,5 +94,41 @@ public class AnotherExampleBean implements DisposableBean {
 
 > 可以为&lt;bean&gt;元素的destroy-method属性分配一个特殊的（作为推断）值，该值指示Spring自动检测特定bean类（任何实现java.lang.AutoCloseable或java.io.Closeable的类）的公共关闭或关闭方法）。也可以在&lt;beans&gt;元素的default-destroy-method属性上设置此特殊（作为推断）值，以将此行为应用于整组bean（请查看[the section called “Default initialization and destroy methods”](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-factory-lifecycle-default-init-destroy-methods)）。请注意，这是Java配置的默认行为。
 
+#### Default initialization and destroy methods----默认初始化和销毁方法
+
+当您编写初始化和销毁不使用特定于Spring的`InitializingBean`和`DisposableBean`回调接口的方法回调时，通常会编写名称为`init（）`，`initialize（）`，`dispose（）`等的方法。理想情况下，此类生命周期回调方法的名称在项目中是标准化的，以便所有开发人员使用相同的方法名称并确保一致性。
+
+您可以配置Spring容器以查找命名初始化并销毁每个bean上的回调方法名称。这意味着，作为应用程序开发人员，您可以编写应用程序类并使用名为init（）的初始化回调，而无需为每个bean定义配置init-method =“init”属性。Spring IoC容器在创建bean时调用该方法（并且符合前面描述的标准生命周期回调契约）。此功能还强制执行初始化和销毁方法回调的一致命名约定。
+
+假设您的初始化回调方法名为init（），而destroy回调方法名为destroy（）。 您的类将类似于以下示例中的类。
+
+```
+public class DefaultBlogService implements BlogService {
+
+    private BlogDao blogDao;
+
+    public void setBlogDao(BlogDao blogDao) {
+        this.blogDao = blogDao;
+    }
+
+    // this is (unsurprisingly) the initialization callback method
+    public void init() {
+        if (this.blogDao == null) {
+            throw new IllegalStateException("The [blogDao] property must be set.");
+        }
+    }
+}
+```
+
+```
+<beans default-init-method="init">
+
+    <bean id="blogService" class="com.foo.DefaultBlogService">
+        <property name="blogDao" ref="blogDao" />
+    </bean>
+
+</beans>
+```
+
 
 
