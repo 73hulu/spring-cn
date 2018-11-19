@@ -92,5 +92,7 @@ public class AnotherExampleBean implements DisposableBean {
 
 但不会将代码耦合到Spring。
 
+> 可以为&lt;bean&gt;元素的destroy-method属性分配一个特殊的（作为推断）值，该值指示Spring自动检测特定bean类（任何实现java.lang.AutoCloseable或java.io.Closeable的类）的公共关闭或关闭方法）。也可以在&lt;beans&gt;元素的default-destroy-method属性上设置此特殊（作为推断）值，以将此行为应用于整组bean（请查看[the section called “Default initialization and destroy methods”](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-factory-lifecycle-default-init-destroy-methods)）。请注意，这是Java配置的默认行为。
+
 
 
