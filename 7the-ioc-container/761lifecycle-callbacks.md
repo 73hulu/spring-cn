@@ -171,7 +171,7 @@ public interface Lifecycle {
 }
 ```
 
-任何Spring管理的对象都可以实现该接口。然后，当`ApplicationContext`本身接收到启动和停止信号时，例如， 对于运行时的停止/重新启动方案，它会将这些调用级联到该上下文中定义的所有生命周期`Lifecycle说`实现。它通过委托给`LifecycleProcessor`来实现：
+任何Spring管理的对象都可以实现该接口。然后，当`ApplicationContext`本身接收到启动和停止信号时，例如， 对于运行时的停止/重新启动方案，它会将这些调用级联到该上下文中定义的所有生命周期`Lifecycle`实现。它通过委托给`LifecycleProcessor`来实现：
 
 ```
 public interface LifecycleProcessor extends Lifecycle {
@@ -216,4 +216,35 @@ public interface SmartLifecycle extends Lifecycle, Phased {
 ```
 
 如上所述，LifecycleProcessor接口还定义了用于刷新和关闭上下文的回调方法。后者将简单地驱动关闭过程，就好像已经显式调用了stop（），但是当上下文关闭时会发生。另一方面，“refresh”回调启用了SmartLifecycle bean的另一个功能。刷新上下文（在所有对象都已实例化并初始化之后），将调用该回调，此时默认生命周期处理器将检查每个SmartLifecycle对象的isAutoStartup（）方法返回的布尔值。如果为“true”，则该对象将在该点启动，而不是等待显式调用上下文或其自己的start（）方法（与上下文刷新不同，上下文启动不会自动发生在标准上下文实现中）。“phase”值以及任何“depends-on”关系将以与上述相同的方式确定启动顺序。
+
+#### Shutting down the Spring IoC container gracefully in non-web applications----在非Web应用程序中正常关闭Spring IoC容器
+
+> 本节仅适用于非Web应用程序。Spring的基于web的ApplicationContext实现已经有了适当的代码，可以在相关的web应用程序关闭时优雅地关闭Spring IoC容器。
+
+如果您在非Web应用程序环境中使用Spring的IoC容器；例如，在富客户端桌面环境中; 您使用JVM注册了一个关闭钩子。这样做可确保正常关闭并在单例bean上调用相关的destroy方法，以便释放所有资源。当然，您仍然必须正确配置和实现这些destroy回调。
+
+要注册关闭挂钩，请调用`ConfigurableApplicationContext`接口上声明的`registerShutdownHook（）`方法：
+
+```
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public final class Boot {
+
+    public static void main(final String[] args) throws Exception {
+        ConfigurableApplicationContext ctx = new ClassPathXmlApplicationContext("beans.xml");
+
+        // add a shutdown hook for the above context...
+        ctx.registerShutdownHook();
+
+        // app runs here...
+
+        // main method exits, hook is called prior to the app shutting down...
+    }
+}
+```
+
+
+
+
 

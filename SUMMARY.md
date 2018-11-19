@@ -70,6 +70,7 @@
       * [7.5.3、Singleton beans with prototype-bean dependencies](7the-ioc-container/75bean-scopes/753singleton-beans-with-prototype-bean-dependencies.md)
       * [7.5.4、Request, session, global session, application, and WebSocket scopes](7the-ioc-container/75bean-scopes/754request-session-global-session-application-and-websocket-scopes.md)
       * 7.5.5、Custom scopes
-    * 7.6、Customizing the nature of a bean
+    * [7.6、Customizing the nature of a bean](7the-ioc-container/76customizing-the-nature-of-a-bean.md)
       * [7.6.1、Lifecycle callbacks](7the-ioc-container/761lifecycle-callbacks.md)
+      * [7.6.2、ApplicationContextAware and BeanNameAware](7the-ioc-container/762applicationcontextaware-and-beannameaware.md)
 
