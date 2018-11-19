@@ -74,4 +74,5 @@
       * [7.6.1、Lifecycle callbacks](7the-ioc-container/761lifecycle-callbacks.md)
       * [7.6.2、ApplicationContextAware and BeanNameAware](7the-ioc-container/762applicationcontextaware-and-beannameaware.md)
       * 7.6.3、Other Aware interfaces
+    * [7.7、Bean definition inheritance](7the-ioc-container/77bean-definition-inheritance.md)
 
