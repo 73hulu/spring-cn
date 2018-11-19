@@ -204,5 +204,5 @@ public interface SmartLifecycle extends Lifecycle, Phased {
 }
 ```
 
-
+启动时，相位（phase）最低的对象先启动，停止时顺序相反。因此，实现SmartLifecycle并且其getPhase（）方法返回Integer.MIN\_VALUE的对象将是第一个开始和最后一个停止的对象。在频谱的另一端，相位值Integer.MAX\_VALUE将指示对象应该最后启动并首先停止（可能是因为它依赖于正在运行的其他进程）。在考虑相位值时，同样重要的是要知道任何未实现SmartLifecycle的“正常”Lifecycle对象的默认阶段都是0.因此，任何负相位值都表示对象应该在这些标准组件之前启动（和 在他们之后停止），反之亦然，任何正相位值。
 
