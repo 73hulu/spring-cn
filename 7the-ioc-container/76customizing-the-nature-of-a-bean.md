@@ -4,7 +4,10 @@
 
 | Name | Injected Dependency  注入依赖 | Explained in…​   解释在...... |
 | :--- | :--- | :--- |
-| ApplicationContextAware | 声明ApplicationContext |  |
+| ApplicationContextAware | 声明ApplicationContext | [Section 7.6.2, “ApplicationContextAware and BeanNameAware”](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-factory-aware) |
+| ApplicationEventPublisherAware | 随附的ApplicationContext的事件发布者 | [Section 7.15, “Additional capabilities of the ApplicationContext”](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#context-introduction) |
+| BeanClassLoaderAware | 用于加载bean类的类加载器 | [Section 7.3.2, “Instantiating beans”](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-factory-class) |
+| BeanFactoryAware | 声明BeanFactory | [Section 7.6.2, “ApplicationContextAware and BeanNameAware”](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-factory-aware) |
 
 
 
