@@ -75,4 +75,6 @@
       * [7.6.2、ApplicationContextAware and BeanNameAware](7the-ioc-container/762applicationcontextaware-and-beannameaware.md)
       * 7.6.3、Other Aware interfaces
     * [7.7、Bean definition inheritance](7the-ioc-container/77bean-definition-inheritance.md)
+    * [7.8、Container Extension Points](7the-ioc-container/78container-extension-points.md)
+      * [7.8.1、Customizing beans using a BeanPostProcessor](7the-ioc-container/78container-extension-points/781customizing-beans-using-a-beanpostprocessor.md)
 
