@@ -206,3 +206,16 @@ public interface SmartLifecycle extends Lifecycle, Phased {
 
 启动时，相位（phase）最低的对象先启动，停止时顺序相反。因此，实现SmartLifecycle并且其getPhase（）方法返回Integer.MIN\_VALUE的对象将是第一个开始和最后一个停止的对象。在频谱的另一端，相位值Integer.MAX\_VALUE将指示对象应该最后启动并首先停止（可能是因为它依赖于正在运行的其他进程）。在考虑相位值时，同样重要的是要知道任何未实现SmartLifecycle的“正常”Lifecycle对象的默认阶段都是0.因此，任何负相位值都表示对象应该在这些标准组件之前启动（和 在他们之后停止），反之亦然，任何正相位值。
 
+如您所见，SmartLifecycle定义的stop方法接受回调。任何实现必须在该实现的关闭过程完成后调用该回调的run（）方法。这样就可以在必要时启用异步关闭，因为LifecycleProcessor接口的默认实现DefaultLifecycleProcessor将等待每个阶段内对象组的超时值来调用该回调。默认的每阶段超时为30秒。您可以通过在上下文中定义名为“lifecycleProcessor”的bean来覆盖缺省生命周期处理器实例。如果您只想修改超时，那么定义以下内容就足够了：
+
+```
+<bean id="lifecycleProcessor" class="org.springframework.context.support.DefaultLifecycleProcessor">
+    <!-- timeout value in milliseconds -->
+    <property name="timeoutPerShutdownPhase" value="10000"/>
+</bean>
+```
+
+
+
+
+
