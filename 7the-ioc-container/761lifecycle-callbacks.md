@@ -33,7 +33,64 @@ public class ExampleBean {
 }
 ```
 
+与下面的完全一样
 
+```
+<bean id="exampleInitBean" class="examples.AnotherExampleBean"/>
+```
+
+```
+public class AnotherExampleBean implements InitializingBean {
+
+    public void afterPropertiesSet() {
+        // do some initialization work
+    }
+}
+```
+
+但不会将代码耦合到Spring。
+
+#### Destruction callbacks----销毁回调
+
+实现`org.springframework.beans.factory.DisposableBean`接口允许bean在包含它的容器被销毁时获得回调。
+
+DisposableBean接口指定一个方法：
+
+```
+void destroy() throws Exception;
+```
+
+建议您不要使用DisposableBean回调接口，因为它会不必要地将代码耦合到Spring。或者，使用@PreDestro注释或指定bean定义支持的泛型方法。使用基于XML的配置元数据，可以在&lt;bean /&gt;上使用destroy-method属性。使用Java配置，您可以使用@Bean的destroyMethod属性，请查看[the section called “Receiving lifecycle callbacks”](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-java-lifecycle-callbacks)。例如，以下内容：
+
+```
+<bean id="exampleInitBean" class="examples.ExampleBean" destroy-method="cleanup"/>
+```
+
+```
+public class ExampleBean {
+
+    public void cleanup() {
+        // do some destruction work (like releasing pooled connections)
+    }
+}
+```
+
+与下面的完全一样
+
+```
+<bean id="exampleInitBean" class="examples.AnotherExampleBean"/>
+```
+
+```
+public class AnotherExampleBean implements DisposableBean {
+
+    public void destroy() {
+        // do some destruction work (like releasing pooled connections)
+    }
+}
+```
+
+但不会将代码耦合到Spring。
 
 
 
