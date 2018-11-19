@@ -138,3 +138,23 @@ public class DefaultBlogService implements BlogService {
 
 Spring容器保证在为bean提供所有依赖项之后立即调用已配置的初始化回调。因此，在原始bean引用上调用初始化回调，这意味着AOP拦截器等尚未应用于bean。**首先完整地创建目标bean，然后应用AOP代理\(例如\)及其拦截器链**。如果目标bean和代理是分开定义的，那么您的代码甚至可以绕过代理与原始目标bean进行交互。因此，将拦截器应用到init方法将是不一致的，因为这样做将把目标bean的生命周期与其代理/拦截器结合起来，并且在代码直接与原始目标bean交互时留下奇怪的语义。
 
+#### Combining lifecycle mechanisms----结合生命周期机制
+
+从Spring 2.5开始，您有三个控制bean生命周期行为的选项：InitializingBean和DisposableBean回调接口; 自定义init（）和destroy（）方法; 以及@PostConstruct和@PreDestroy注释。您可以组合这些机制来控制给定的bean。
+
+> 如果为bean配置了多个生命周期机制，并且每个机制都配置了不同的方法名称，则每个配置的方法都按照下面列出的顺序执行。但是，如果为配置了相同的方法名称（例如，init（） - 对于多个这些生命周期机制，该方法将执行一次，如上一节中所述。
+
+为同一个bean配置的多个生命周期机制，具有不同的初始化方法，如下所示：
+
+* 使用@PostConstruct注释的方法
+* afterPropertiesSet（）由InitializingBean回调接口定义
+* 自定义配置的init（）方法
+
+Destroy方法以相同的顺序调用：
+
+* 用@PreDestroy注释的方法
+* destroy（），由DisposableBean回调接口定义
+* 自定义配置的destroy（）方法
+
+
+
