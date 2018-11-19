@@ -18,6 +18,21 @@
 void afterPropertiesSet() throws Exception;
 ```
 
+建议您不要使用InitializingBean接口，因为它会不必要地将代码耦合到Spring。或者，使用`@PostConstruct`注释或指定POJO初始化方法。对于基于XML的配置元数据，可以使用init-method属性指定具有void无参数签名的方法的名称。使用Java配置，您可以使用@Bean的initMethod属性，请查看[the section called “Receiving lifecycle callbacks”](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-java-lifecycle-callbacks)。例如，以下内容：
+
+```
+<bean id="exampleInitBean" class="examples.ExampleBean" init-method="init"/>
+```
+
+```
+public class ExampleBean {
+
+    public void init() {
+        // do some initialization work
+    }
+}
+```
+
 
 
 
