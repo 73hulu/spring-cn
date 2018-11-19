@@ -156,5 +156,22 @@ Destroy方法以相同的顺序调用：
 * destroy（），由DisposableBean回调接口定义
 * 自定义配置的destroy（）方法
 
+#### Startup and shutdown callbacks----启动和关闭回调
+
+`Lifecycle`接口为任何具有自己生命周期要求的对象定义基本方法（例如，启动和停止某些后台进程）：
+
+```
+public interface Lifecycle {
+
+    void start();
+
+    void stop();
+
+    boolean isRunning();
+}
+```
+
+任何Spring管理的对象都可以实现该接口。然后，当`ApplicationContext`本身接收到启动和停止信号时，例如， 对于运行时的停止/重新启动方案，它会将这些调用级联到该上下文中定义的所有生命周期`Lifecycle说`实现。它通过委托给`LifecycleProcessor`来实现：
+
 
 
