@@ -14,5 +14,7 @@ ApplicationContext自动检测部署到其中的任何实现BeanFactoryPostProce
 
 #### Example: the Class name substitution PropertyPlaceholderConfigurer
 
+您可以使用PropertyPlaceholderConfigurer使用标准Java Properties格式将bean定义中的属性值外部化到单独的文件中。
+
 
 
