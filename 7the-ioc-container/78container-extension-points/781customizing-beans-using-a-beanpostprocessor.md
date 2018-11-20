@@ -15,10 +15,61 @@ org.springframework.beans.factory.config.BeanPostProcessor接口恰好包含两�
 请注意，在配置类上使用`@Bean`工厂方法声明`BeanPostProcessor`时，工厂方法的返回类型应该是实现类本身，或者至少是`org.springframework.beans.factory.config.BeanPostProcessor`接口，清楚地表明 该bean的后处理器性质。否则，`ApplicationContext`将无法在完全创建之前按类型自动检测它。由于`BeanPostProcessor`需要尽早实例化以便应用于上下文中其他bean的初始化，因此这种早期类型检测至关重要。
 
 > 虽然推荐的BeanPostProcessor注册方法是通过ApplicationContext自动检测\(如上所述\)，但是也可以使用addBeanPostProcessor方法以编程方式在ConfigurableBeanFactory注册它们。当需要在注册前评估条件逻辑时，甚至在层次结构中跨上下文复制bean post处理器时，这可能非常有用。但请注意，以编程方式添加的BeanPostProcessors不遵循Ordered接口。这是注册的顺序，它决定了执行的顺序。另请注意，以编程方式注册的BeanPostProcessors始终在通过自动检测注册的BeanPostProcessors之前处理，而不管任何显式排序。
-
+>
 > 实现BeanPostProcessor接口的类是特殊的，容器会对它们进行不同的处理。直接引用的所有BeanPostProcessors和bean都会在启动时实例化，这是ApplicationContext的特殊启动阶段的一部分。接下来，以排序的方式注册所有beanpostprocessor，并将其应用于容器中的所有其他bean。因为AOP自动代理是作为BeanPostProcessor本身实现的，所以BeanPostProcessors和它们直接引用的bean都没有资格进行自动代理，因此没有编织方面。对于任何此类bean，您应该看到一条信息性日志消息：“Bean foo不适合所有BeanPostProcessor接口处理（例如：不符合自动代理条件）”。
 >
 > 注意，如果您使用autowiring或@Resource将bean连接到BeanPostProcessor中，Spring在搜索类型匹配依赖项候选时可能会访问意外的bean，因此无法进行自动代理或其他类型的bean后处理。例如，如果你有一个使用@Resource注释的依赖项，其中field / setter名称不直接对应于bean的声明名称而没有使用name属性，那么Spring将访问其他bean以按类型匹配它们。
 
 以下示例显示如何在ApplicationContext中编写，注册和使用BeanPostProcessors。
+
+#### Example: Hello World, BeanPostProcessor-style
+
+第一个例子说明了基本用法。这个示例显示了一个定制的BeanPostProcessor实现，它在容器创建每个bean时调用toString\(\)方法，并将结果字符串打印到系统控制台。
+
+在下面找到自定义BeanPostProcessor实现类定义：
+
+```
+package scripting;
+
+import org.springframework.beans.factory.config.BeanPostProcessor;
+
+public class InstantiationTracingBeanPostProcessor implements BeanPostProcessor {
+
+    // simply return the instantiated bean as-is
+    public Object postProcessBeforeInitialization(Object bean, String beanName) {
+        return bean; // we could potentially return any object reference here...
+    }
+
+    public Object postProcessAfterInitialization(Object bean, String beanName) {
+        System.out.println("Bean '" + beanName + "' created : " + bean.toString());
+        return bean;
+    }
+}
+```
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:lang="http://www.springframework.org/schema/lang"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/lang
+        http://www.springframework.org/schema/lang/spring-lang.xsd">
+
+    <lang:groovy id="messenger"
+            script-source="classpath:org/springframework/scripting/groovy/Messenger.groovy">
+        <lang:property name="message" value="Fiona Apple Is Just So Dreamy."/>
+    </lang:groovy>
+
+    <!--
+    when the above bean (messenger) is instantiated, this custom
+    BeanPostProcessor implementation will output the fact to the system console
+    -->
+    <bean class="scripting.InstantiationTracingBeanPostProcessor"/>
+
+</beans>
+```
+
+
 
