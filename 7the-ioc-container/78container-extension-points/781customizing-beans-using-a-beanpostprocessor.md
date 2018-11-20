@@ -8,5 +8,5 @@
 >
 > 要更改实际的bean定义（即定义bean的计划），您需要使用BeanFactoryPostProcessor，如[Section 7.8.2, “Customizing configuration metadata with a BeanFactoryPostProcessor”](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-factory-extension-factory-postprocessors)
 
-
+org.springframework.beans.factory.config.BeanPostProcessor接口恰好包含两个回调方法。当这样一个类注册为容器的后处理器，容器创建每个bean实例，后处理器从容器得到一个回调容器在初始化方法之前\(如InitializingBean afterPropertiesSet\(\)和任何宣布init方法\)以及任何bean初始化回调之后都会被调用。
 
