@@ -71,5 +71,33 @@ public class InstantiationTracingBeanPostProcessor implements BeanPostProcessor 
 </beans>
 ```
 
+请注意如何简单地定义`InstantiationTracingBeanPostProcessor`。 它甚至没有名称，因为它是一个bean，它可以像任何其他bean一样被依赖注入。（前面的配置还定义了一个由Groovy脚本支持的bean。Spring动态语言支持在第35章动态语言支持一章中有详细介绍。 [Chapter 35, Dynamic language support](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#dynamic-language).）
 
+以下简单Java应用程序执行上述代码和配置：
+
+```
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.scripting.Messenger;
+
+public final class Boot {
+
+    public static void main(final String[] args) throws Exception {
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("scripting/beans.xml");
+        Messenger messenger = (Messenger) ctx.getBean("messenger");
+        System.out.println(messenger);
+    }
+
+}
+```
+
+上述应用程序的输出类似于以下内容：
+
+Bean 'messenger' created : org.springframework.scripting.groovy.GroovyMessenger@272961
+
+org.springframework.scripting.groovy.GroovyMessenger@272961
+
+#### Example: The RequiredAnnotationBeanPostProcessor
+
+将回调接口或注释与自定义BeanPostProcessor实现结合使用是扩展Spring IoC容器的常用方法。一个例子是Spring的RequiredAnnotationBeanPostProcessor——一个随Spring发行版一起发布的BeanPostProcessor实现，它确保用\(任意\)注释标记的bean上的JavaBean属性实际上\(配置为\)依赖注入一个值。
 
