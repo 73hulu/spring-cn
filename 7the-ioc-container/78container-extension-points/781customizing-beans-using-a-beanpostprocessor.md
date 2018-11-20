@@ -10,3 +10,7 @@
 
 org.springframework.beans.factory.config.BeanPostProcessor接口恰好包含两个回调方法。当这样一个类注册为容器的后处理器，容器创建每个bean实例，后处理器从容器得到一个回调容器在初始化方法之前\(如InitializingBean afterPropertiesSet\(\)和任何宣布init方法\)以及任何bean初始化回调之后都会被调用。后处理器可以对bean实例执行任何操作，包括完全忽略回调。 bean后处理器通常检查回调接口或者可以用代理包装bean。一些Spring AOP基础结构类实现为bean后处理器，以便提供代理包装逻辑。
 
+`ApplicationContext`自动检测在实现bean后处理器接口的配置元数据中定义的任何bean。`ApplicationContext`将这些bean注册为后处理器，以便稍后在创建bean时调用它们。Bean后处理器可以像任何其他bean一样部署在容器中。
+
+请注意，在配置类上使用`@Bean`工厂方法声明`BeanPostProcessor`时，工厂方法的返回类型应该是实现类本身，或者至少是`org.springframework.beans.factory.config.BeanPostProcessor`接口，清楚地表明 该bean的后处理器性质。否则，`ApplicationContext`将无法在完全创建之前按类型自动检测它。由于`BeanPostProcessor`需要尽早实例化以便应用于上下文中其他bean的初始化，因此这种早期类型检测至关重要。
+
