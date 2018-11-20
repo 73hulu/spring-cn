@@ -77,4 +77,5 @@
     * [7.7、Bean definition inheritance](7the-ioc-container/77bean-definition-inheritance.md)
     * [7.8、Container Extension Points](7the-ioc-container/78container-extension-points.md)
       * [7.8.1、Customizing beans using a BeanPostProcessor](7the-ioc-container/78container-extension-points/781customizing-beans-using-a-beanpostprocessor.md)
+      * [7.8.2、Customizing configuration metadata with a BeanFactoryPostProcessor](7the-ioc-container/78container-extension-points/782customizing-configuration-metadata-with-a-beanfactorypostprocessor.md)
 
