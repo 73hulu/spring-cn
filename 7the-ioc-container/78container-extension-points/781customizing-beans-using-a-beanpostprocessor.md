@@ -14,3 +14,7 @@ org.springframework.beans.factory.config.BeanPostProcessor接口恰好包含两�
 
 请注意，在配置类上使用`@Bean`工厂方法声明`BeanPostProcessor`时，工厂方法的返回类型应该是实现类本身，或者至少是`org.springframework.beans.factory.config.BeanPostProcessor`接口，清楚地表明 该bean的后处理器性质。否则，`ApplicationContext`将无法在完全创建之前按类型自动检测它。由于`BeanPostProcessor`需要尽早实例化以便应用于上下文中其他bean的初始化，因此这种早期类型检测至关重要。
 
+> 虽然推荐的BeanPostProcessor注册方法是通过ApplicationContext自动检测\(如上所述\)，但是也可以使用addBeanPostProcessor方法以编程方式在ConfigurableBeanFactory注册它们。当需要在注册前评估条件逻辑时，甚至在层次结构中跨上下文复制bean post处理器时，这可能非常有用。但请注意，以编程方式添加的BeanPostProcessors不遵循Ordered接口。这是注册的顺序，它决定了执行的顺序。另请注意，以编程方式注册的BeanPostProcessors始终在通过自动检测注册的BeanPostProcessors之前处理，而不管任何显式排序。
+
+
+
