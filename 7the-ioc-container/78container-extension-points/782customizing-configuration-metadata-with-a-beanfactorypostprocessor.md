@@ -49,7 +49,30 @@ jdbc.password=root
 <context:property-placeholder location="classpath:com/foo/jdbc.properties"/>
 ```
 
+PropertyPlaceholderConfigurer不仅在您指定的属性文件中查找属性。默认情况下，如果它无法在指定的属性文件中找到属性，它还会检查Java System属性。您可以通过使用以下三个整数值之一设置configurer的systemPropertiesMode属性来自定义此行为：
 
+* never \(0\)：从不检查系统属性
+* fallback \(1\):：如果在指定的属性文件中无法解析，请检查系统属性。 这是默认值。
+* override \(2\)：在尝试指定的属性文件之前，首先检查系统属性。 这允许系统属性覆盖任何其他属性源。
+
+有关更多信息，请参阅PropertyPlaceholderConfigurer javadocs。
+
+> 您可以使用PropertyPlaceholderConfigurer替换类名，这在您必须在运行时选择特定实现类时有时很有用。 例如：
+>
+> ```
+> <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+>     <property name="locations">
+>         <value>classpath:com/foo/strategy.properties</value>
+>     </property>
+>     <property name="properties">
+>         <value>custom.strategy.class=com.foo.DefaultStrategy</value>
+>     </property>
+> </bean>
+>
+> <bean id="serviceStrategy" class="${custom.strategy.class}"/>
+> ```
+>
+> 如果在运行时不能将类解析为有效的类，则bean的解析将在将要创建时失败，这是在非lazy-init bean的ApplicationContext的预实例化阶段。
 
 
 
