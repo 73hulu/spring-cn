@@ -14,7 +14,42 @@ ApplicationContext自动检测部署到其中的任何实现BeanFactoryPostProce
 
 #### Example: the Class name substitution PropertyPlaceholderConfigurer
 
-您可以使用PropertyPlaceholderConfigurer使用标准Java Properties格式将bean定义中的属性值外部化到单独的文件中。
+使用PropertyPlaceholderConfigurer将属性值从bean定义外部化到使用标准Java `Properties`格式的单独文件中。这样做可以使部署应用程序的人员自定义特定于环境的属性（如数据库URL和密码），而无需修改主XML定义文件或容器文件的复杂性或风险。
+
+请考虑以下基于XML的配置元数据片段，其中定义了具有占位符值的DataSource。该示例显示了从外部属性文获取件配置的属性。在运行时，PropertyPlaceholderConfigurer应用于将替换DataSource的某些属性的元数据。要替换的值指定为$ {property-name}形式的占位符，该形式遵循Ant / log4j / JSP EL样式。
+
+```
+<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="locations" value="classpath:com/foo/jdbc.properties"/>
+</bean>
+
+<bean id="dataSource" destroy-method="close"
+        class="org.apache.commons.dbcp.BasicDataSource">
+    <property name="driverClassName" value="${jdbc.driverClassName}"/>
+    <property name="url" value="${jdbc.url}"/>
+    <property name="username" value="${jdbc.username}"/>
+    <property name="password" value="${jdbc.password}"/>
+</bean>
+```
+
+实际值来自标准Java Properties格式的另一个文件：
+
+```
+jdbc.driverClassName=org.hsqldb.jdbcDriver
+jdbc.url=jdbc:hsqldb:hsql://production:9002
+jdbc.username=sa
+jdbc.password=root
+```
+
+因此，字符串$ {jdbc.username}在运行时将替换为值'sa'，这同样适用于与属性文件中的键匹配的其他占位符值。PropertyPlaceholderConfigurer检查bean定义的大多数属性和属性中的占位符。 此外，可以自定义占位符前缀和后缀。
+
+使用Spring 2.5中引入的上下文命名空间，可以使用专用配置元素配置属性占位符。可以在location属性中提供一个或多个位置作为逗号分隔列表。
+
+```
+<context:property-placeholder location="classpath:com/foo/jdbc.properties"/>
+```
+
+
 
 
 
