@@ -74,5 +74,42 @@ PropertyPlaceholderConfigurer不仅在您指定的属性文件中查找属性。
 >
 > 如果在运行时不能将类解析为有效的类，则bean的解析将在将要创建时失败，这是在非lazy-init bean的ApplicationContext的预实例化阶段。
 
+#### Example: the PropertyOverrideConfigurer
+
+PropertyOverrideConfigurer是另一个bean factory post-processor，类似于PropertyPlaceholderConfigurer，但与后者不同，原始定义可以具有默认值，或者根本不具有bean属性的值。如果重写的Properties文件没有某个bean属性的条目，则使用默认的上下文定义。
+
+请注意，bean定义并不知道被覆盖，因此从XML定义文件中不能立即看出正在使用覆盖配置程序。如果多个PropertyOverrideConfigurer实例为同一个bean属性定义了不同的值，则由于覆盖机制，最后一个实例会获胜。
+
+属性文件配置行采用以下格式：
+
+```
+beanName.property=value
+```
+
+例如：
+
+```
+dataSource.driverClassName=com.mysql.jdbc.Driver
+dataSource.url=jdbc:mysql:mydb
+```
+
+此示例文件可以与包含名为dataSource的bean的容器定义一起使用，该bean具有驱动程序和url属性。
+
+还支持复合属性名，只要路径的每个组件\(最终被覆盖的属性除外\)已经是非空的\(假定由构造函数初始化\)。在这个例子中……
+
+```
+foo.fred.bob.sammy=123
+```
+
+foo bean的fred属性的bob属性的sammy属性设置为标量值123。
+
+> 指定的覆盖值始终是文字值; 它们不会被翻译成bean引用。当XML bean定义中的原始值指定bean引用时，也适用此约定。
+
+使用Spring 2.5中引入的上下文命名空间，可以使用专用配置元素配置属性覆盖：
+
+```
+<context:property-override location="classpath:override.properties"/>
+```
+
 
 
