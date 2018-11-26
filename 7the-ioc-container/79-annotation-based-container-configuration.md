@@ -4,7 +4,7 @@
 >
 > 无论选择如何，Spring都可以兼顾两种风格，甚至可以将它们混合在一起。值得一提的是，通过[JavaConfig](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-java)方式，Spring允许以一种非侵入的方式使用注解，这样组件代码和工具就不会被侵入，通过[Spring Tool Suite](https://spring.io/tools/sts)支持全部的配置风格。
 
-一种在 XML 与基于注解之间作取舍的衡量是依赖什么，是否能依赖于字节码元数据去装配组件以取代分类的 angle-bracket 的声明。开发人员不是使用XML来描述bean连接，而是通过在相关的类，方法或字段声明上使用注释将配置移动到组件类本身。如上所述[the section called “Example: The RequiredAnnotationBeanPostProcessor”](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-factory-extension-bpp-examples-rabpp)，将BeanPostProcessor与注释结合使用是扩展Spring IoC容器的常用方法。举个例子，在 spring 2.0 版本介绍了使用@Required注解去增强必要属性的需求。在 spring 2.5 版本可以使用相同的方式去驱动 spring 的依赖注入。从本质上来讲，@Autowired注解也能提供相似的功能，这被称之为“自动装配协作者” [Section 7.4.5, “Autowiring collaborators”](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-factory-autowire)，但他提供了更细粒度的控制以及更广泛的适用性。Spring 2.5还增加了对JSR-250注释的支持，例如@ PostConstruct和@PreDestroy。spring 3.0 增加了对 JSR-330（为 Java 而引的依赖注入）注解的支持，包含在 javax.jnject 包的注解，例如@Injectand和@Named。有关注解的更多信息可以在相关的章节中找到  [relevant section](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-standard-annotations).。
+一种在 XML 与基于注解之间作取舍的衡量是依赖什么，是否能依赖于字节码元数据去装配组件以取代分类的 angle-bracket 的声明。开发人员不是使用XML来描述bean连接，而是通过在相关的类，方法或字段声明上使用注释将配置移动到组件类本身。如上所述[the section called “Example: The RequiredAnnotationBeanPostProcessor”](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-factory-extension-bpp-examples-rabpp)，将BeanPostProcessor与注释结合使用是扩展Spring IoC容器的常用方法。举个例子，在 spring 2.0 版本介绍了使用@Required注解去增强必要属性的需求。在 spring 2.5 版本可以使用相同的方式去驱动 spring 的依赖注入。从本质上来讲，@Autowired注解也能提供相似的功能，这被称之为“自动装配协作者” [Section 7.4.5, “Autowiring collaborators”](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-factory-autowire)，但他提供了更细粒度的控制以及更广泛的适用性。Spring 2.5还增加了对JSR-250注释的支持，例如@ PostConstruct和@PreDestroy。spring 3.0 增加了对 JSR-330（为 Java 而引的依赖注入）注解的支持，包含在 javax.jnject 包的注解，例如@Injectand和@Named。有关注解的更多信息可以在相关的章节中找到  [relevant section](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#beans-standard-annotations).。
 
 > 注意：注解注入会在 XML 注入之前执行，所以在装配的过程中，后者的配置将会覆盖前者的属性。
 
@@ -24,6 +24,10 @@
 
 </beans>
 ```
+
+（隐式注册的post-processors包括 `AutowiredAnnotationBeanPostProcessor`, `CommonAnnotationBeanPostProcessor`, `PersistenceAnnotationBeanPostProcessor`，以及前面提到的`RequiredAnnotationBeanPostProcessor`）
+
+> &lt;context:annotation-config/&gt;仅查找在定义它的同一应用程序上下文中的bean上的注释。这意味着，如果你在WebApplicationContext的DispatcherServlet上应用&lt;context:annotation-config/&gt;，那么他只会在你的 controllers 检查 @Autowired beans，而不会在 services 上。
 
 
 
