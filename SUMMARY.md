@@ -81,5 +81,5 @@
       * [7.8.3、Customizing instantiation logic with a FactoryBean](7the-ioc-container/78container-extension-points/783customizing-instantiation-logic-with-a-factorybean.md)
     * [7.9、 Annotation-based container configuration](7the-ioc-container/79-annotation-based-container-configuration.md)
       * [7.9.1、@Required](7the-ioc-container/79-annotation-based-container-configuration/791required.md)
-      * 7.9.2、@Autowired
+      * [7.9.2、@Autowired](7the-ioc-container/79-annotation-based-container-configuration/792autowired.md)
 
