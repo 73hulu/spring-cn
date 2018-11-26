@@ -80,4 +80,5 @@
       * [7.8.2、Customizing configuration metadata with a BeanFactoryPostProcessor](7the-ioc-container/78container-extension-points/782customizing-configuration-metadata-with-a-beanfactorypostprocessor.md)
       * [7.8.3、Customizing instantiation logic with a FactoryBean](7the-ioc-container/78container-extension-points/783customizing-instantiation-logic-with-a-factorybean.md)
     * [7.9、 Annotation-based container configuration](7the-ioc-container/79-annotation-based-container-configuration.md)
+      * 7.9.1、@Required
 

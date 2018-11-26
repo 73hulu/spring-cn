@@ -27,7 +27,7 @@
 
 （隐式注册的post-processors包括 `AutowiredAnnotationBeanPostProcessor`, `CommonAnnotationBeanPostProcessor`, `PersistenceAnnotationBeanPostProcessor`，以及前面提到的`RequiredAnnotationBeanPostProcessor`）
 
-> &lt;context:annotation-config/&gt;仅查找在定义它的同一应用程序上下文中的bean上的注释。这意味着，如果你在WebApplicationContext的DispatcherServlet上应用&lt;context:annotation-config/&gt;，那么他只会在你的 controllers 检查 @Autowired beans，而不会在 services 上。
+> &lt;context:annotation-config/&gt;仅查找在定义它的同一应用程序上下文中的bean上的注释。这意味着，如果你在WebApplicationContext的DispatcherServlet上应用&lt;context:annotation-config/&gt;，那么他只会在你的 controllers 检查 @Autowired beans，而不会在 services 上。有关更多信息，请参见第22.2节“DispatcherServlet” [Section 22.2, “The DispatcherServlet”](https://docs.spring.io/spring/docs/4.3.20.RELEASE/spring-framework-reference/htmlsingle/#mvc-servlet)。
 
 
 
