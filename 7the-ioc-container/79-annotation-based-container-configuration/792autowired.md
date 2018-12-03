@@ -159,5 +159,22 @@ public class SimpleMovieLister {
 }
 ```
 
+你也可以对那些已知的具有可解析依赖的接口使用@Autowired：BeanFactory, ApplicationContext, Environment, ResourceLoader, ApplicationEventPublisher, and MessageSource。这些接口及其扩展接口\(如ConfigurableApplicationContext或ResourcePatternResolver\)是自动解析的，不需要特殊的设置。
+
+```
+public class MovieRecommender {
+
+    @Autowired
+    private ApplicationContext context;
+
+    public MovieRecommender() {
+    }
+
+    // ...
+}
+```
+
+> @Autowired，@Inject，@Resource和@Value注解是通过Spring BeanPostProcessor实现处理，这反过来意味着你不能在你自己的BeanPostProcessor或BeanFactoryPostProcessor中应用这些注解（如果有的话）。这些类型必须显式的通过XML或使用Spring的@Bean方法来’wired up（连接起来）’。
+
 
 
