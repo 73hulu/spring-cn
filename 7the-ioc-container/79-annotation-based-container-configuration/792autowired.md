@@ -73,7 +73,37 @@ public class MovieRecommender {
 }
 ```
 
+> 确保您的目标组件（例如MovieCatalog，CustomerPreferenceDao）始终按照用于@Autowired注释注入点的类型进行声明。否则，由于在运行时未找到类型匹配，注入可能会失败。
+>
+> 对于通过类路径扫描找到的XML定义的bean或组件类，容器通常预先知道具体类型。但是，对于@Bean工厂方法，您需要确保声明的返回类型具有足够的表达能力。对于实现多个接口的组件或可能由其实现类型引用的组件，请考虑在工厂方法上声明最具体的返回类型（至少与引用bean的注入点所要求的具体相同）。
 
+通过将注释添加到需要该类型数组的字段或方法，还可以从ApplicationContext提供特定类型的所有bean:
+
+```
+public class MovieRecommender {
+
+    @Autowired
+    private MovieCatalog[] movieCatalogs;
+
+    // ...
+}
+```
+
+这同样适用于类型集合：
+
+```
+public class MovieRecommender {
+
+    private Set<MovieCatalog> movieCatalogs;
+
+    @Autowired
+    public void setMovieCatalogs(Set<MovieCatalog> movieCatalogs) {
+        this.movieCatalogs = movieCatalogs;
+    }
+
+    // ...
+}
+```
 
 
 
