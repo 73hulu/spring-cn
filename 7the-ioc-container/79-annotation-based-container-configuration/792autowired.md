@@ -105,5 +105,11 @@ public class MovieRecommender {
 }
 ```
 
+> 如果希望按特定顺序对数组或列表中的项进行排序，则目标bean可以实现org.springframework.core.Ordered接口或使用@Order或标准@Priority注释。否则，它们的顺序将遵循容器中相应目标bean定义的注册顺序。
+>
+> @Order注释可以在目标类级别声明，也可以在@Bean方法上声明，每个bean定义可能非常独立（如果多个定义具有相同的bean类）。@Order值可能会影响注入点的优先级，但请注意它们不会影响单例启动顺序，这是由依赖关系和@DependsOn声明确定的正交关注点。
+>
+> 请注意，标准的javax.annotation.Priority注释在@Bean级别不可用，因为它无法在方法上声明。它的语义可以通过@Order值与每个类型的单个bean上的@Primary一起建模。
+
 
 
