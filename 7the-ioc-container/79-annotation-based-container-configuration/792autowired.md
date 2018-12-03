@@ -111,5 +111,53 @@ public class MovieRecommender {
 >
 > 请注意，标准的javax.annotation.Priority注释在@Bean级别不可用，因为它无法在方法上声明。它的语义可以通过@Order值与每个类型的单个bean上的@Primary一起建模。
 
+即使是有类型的映射，只要预期的键类型是字符串，也可以自动连接。映射值将包含预期类型的所有bean，而键将包含相应的bean名称:
+
+```
+public class MovieRecommender {
+
+    private Map<String, MovieCatalog> movieCatalogs;
+
+    @Autowired
+    public void setMovieCatalogs(Map<String, MovieCatalog> movieCatalogs) {
+        this.movieCatalogs = movieCatalogs;
+    }
+
+    // ...
+}
+```
+
+默认情况下，当没有候选bean可用时，自动连接将失败；默认行为是将带注释的方法、构造函数和字段视为指示所需依赖项。此行为可以更改，如下所示。
+
+```
+public class SimpleMovieLister {
+
+    private MovieFinder movieFinder;
+
+    @Autowired(required = false)
+    public void setMovieFinder(MovieFinder movieFinder) {
+        this.movieFinder = movieFinder;
+    }
+
+    // ...
+}
+```
+
+> 每个类只有一个构造函数可以标记为必需的，但可以注解多个非必需的构造函数。在这种情况下，会考虑这些候选者中的每一个，Spring使用最贪婪的构造函数，即依赖最满足的构造函数，具有最大数目的参数。
+>
+> 建议使用@Autowired的必需属性而不是@Required注释。required属性表示该属性不是自动装配所必需的，如果无法自动装配该属性，则会忽略该属性。另一方面，@ Required更强大，因为它强制执行由容器支持的任何方式设置的属性。 如果未注入任何值，则会引发相应的异常。
+
+或者，您可以通过Java 8的java.util.Optional表达特定依赖项的非必需特性：
+
+```
+public class SimpleMovieLister {
+
+    @Autowired
+    public void setMovieFinder(Optional<MovieFinder> movieFinder) {
+        ...
+    }
+}
+```
+
 
 
