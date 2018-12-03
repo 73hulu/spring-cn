@@ -16,7 +16,7 @@ public class MovieRecommender {
 }
 ```
 
-> 注意：在 spring 4.3 框架中，@Autowired构造方法不再是必须的，如果 bean 只定义了一个构造函数。如果有多个构造函数，那么至少要一个注解，以告诉容器改用哪一个。
+> 注意：在 spring 4.3 框架中，@Autowired构造方法不再是必须的，如果 bean 只定义了一个构造函数就不需要@Autowired。如果有多个构造函数，那么至少要一个注解，以告诉容器该用哪一个。
 
 正如所料，您还可以将@Autowired注释应用于“传统”setter方法：
 
@@ -34,7 +34,7 @@ public class SimpleMovieLister {
 }
 ```
 
-您还可以将注释应用于具有任意名称和/或多个参数的方法：
+您还可以将注释应用于具有任意名称或多个参数的方法：
 
 ```
 public class MovieRecommender {
